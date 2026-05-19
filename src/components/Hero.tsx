@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { Compass, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage } from '../lib/LanguageContext'; // 1. IMPORTAMOS EL IDIOMA
 
 const heroImages = [
   "https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=2676&auto=format&fit=crop",
@@ -9,11 +10,12 @@ const heroImages = [
 ];
 
 export function Hero() {
+  const { t } = useLanguage(); // 2. USAMOS EL HOOK DE TRADUCCIÓN
   const [currentImage, setCurrentImage] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]); // Parallax effect
-  const scale = useTransform(scrollYProgress, [0, 1], [1.1, 1]); // Zoom-out on scroll
+  const y = useTransform(scrollYProgress,, ["0%", "30%"]); // Parallax effect
+  const scale = useTransform(scrollYProgress,, [1.1, 1]); // Zoom-out on scroll
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -55,18 +57,21 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="max-w-2xl"
         >
+          {/* 3. APLICAMOS LAS TRADUCCIONES AQUÍ */}
           <h1 className="font-serif text-5xl md:text-7xl text-white mb-4 leading-tight drop-shadow-2xl">
-            CENTRO ARTESANAL <br />
-            <span className="text-mystic-gold text-6xl md:text-8xl" style={{ textShadow: '0 0 40px rgba(212, 175, 55, 0.4)' }}>CUSCO</span>
+            {t('heroTitleTop')} <br />
+            <span className="text-mystic-gold text-6xl md:text-8xl" style={{ textShadow: '0 0 40px rgba(212, 175, 55, 0.4)' }}>
+              {t('heroTitleBottom')}
+            </span>
           </h1>
           <p className="text-lg md:text-xl text-mystic-light mb-8 max-w-lg leading-relaxed font-light opacity-90">
-            Promovemos y fortalecemos el trabajo de nuestros artesanos, preservando nuestra cultura e identidad a través de arte auténtico.
+            {t('heroSubtitle')}
           </p>
           
           <div className="flex flex-wrap gap-4">
             <button className="bg-mystic-gold hover:bg-mystic-gold-light text-black px-8 py-3.5 rounded-sm font-bold transition-all duration-300 flex items-center gap-2 group shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)]">
               <Compass className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-              Explorar Directorio
+              {t('heroBtnExplore')}
             </button>
           </div>
         </motion.div>
