@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { Compass, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useLanguage } from '../lib/LanguageContext'; // 1. IMPORTAMOS EL IDIOMA
+import { useLanguage } from '../lib/LanguageContext';
 
 const heroImages = [
   "https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=2676&auto=format&fit=crop",
@@ -10,14 +10,15 @@ const heroImages = [
 ];
 
 export function Hero() {
-  const { t } = useLanguage(); // 2. USAMOS EL HOOK DE TRADUCCIÓN
+  const { t } = useLanguage();
   const [currentImage, setCurrentImage] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
   
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
-  // ¡CORREGIDO AQUÍ ABAJO! (Se añadió entre las comas)
-  const y = useTransform(scrollYProgress,, ["0%", "30%"]); // Parallax effect
-const scale = useTransform(scrollYProgress,, [1.1, 1]); // Zoom-out on scroll
+  
+  // LÍNEAS CORREGIDAS (SIN COMAS DOBLES)
+  const y = useTransform(scrollYProgress,, ["0%", "30%"]);
+  const scale = useTransform(scrollYProgress,, [1.1, 1]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -31,7 +32,6 @@ const scale = useTransform(scrollYProgress,, [1.1, 1]); // Zoom-out on scroll
 
   return (
     <section ref={containerRef} id="inicio" className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background Image Slider with Parallax */}
       <motion.div style={{ y, scale }} className="absolute inset-0 z-0 w-full h-[120%] -top-[10%]">
         <AnimatePresence mode="popLayout">
           {heroImages.map((src, index) => (
@@ -59,7 +59,6 @@ const scale = useTransform(scrollYProgress,, [1.1, 1]); // Zoom-out on scroll
           transition={{ duration: 0.8, delay: 0.2 }}
           className="max-w-2xl"
         >
-          {/* 3. APLICAMOS LAS TRADUCCIONES AQUÍ */}
           <h1 className="font-serif text-5xl md:text-7xl text-white mb-4 leading-tight drop-shadow-2xl">
             {t('heroTitleTop')} <br />
             <span className="text-mystic-gold text-6xl md:text-8xl" style={{ textShadow: '0 0 40px rgba(212, 175, 55, 0.4)' }}>
@@ -79,7 +78,6 @@ const scale = useTransform(scrollYProgress,, [1.1, 1]); // Zoom-out on scroll
         </motion.div>
       </div>
 
-      {/* Slider Controls */}
       <div className="absolute bottom-10 right-10 z-20 flex gap-3 hidden md:flex">
         <button onClick={prevImage} className="w-12 h-12 rounded-full border border-white/20 bg-black/20 backdrop-blur flex items-center justify-center text-white hover:bg-mystic-gold hover:border-transparent transition-all">
           <ChevronLeft className="w-6 h-6" />
@@ -89,7 +87,6 @@ const scale = useTransform(scrollYProgress,, [1.1, 1]); // Zoom-out on scroll
         </button>
       </div>
 
-      {/* Slider Indicators */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {heroImages.map((_, idx) => (
           <button 
