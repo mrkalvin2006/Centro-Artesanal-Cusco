@@ -17,7 +17,7 @@ export function Hero() {
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   // ¡CORREGIDO AQUÍ ABAJO! (Se añadió entre las comas)
   const y = useTransform(scrollYProgress,, ["0%", "30%"]); // Parallax effect
-  const scale = useTransform(scrollYProgress,, [1.1, 1]); // Zoom-out on scroll
+const scale = useTransform(scrollYProgress,, [1.1, 1]); // Zoom-out on scroll
 
   useEffect(() => {
     const timer = setInterval(() => {
