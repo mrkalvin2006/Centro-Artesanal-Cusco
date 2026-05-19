@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Menu, Search, Map, Globe, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { LanguageProvider } from './lib/LanguageContext'; // IMPORTAMOS EL IDIOMA
+// ¡ESTA ES LA LÍNEA QUE FALTABA O ESTABA MAL! 👇
+import { useLanguage } from '../lib/LanguageContext';
 
 const languages = [
   { code: 'ES', label: 'Español' },
@@ -11,7 +12,7 @@ const languages = [
 ];
 
 export function Navbar() {
-  const { lang, setLang, t } = useLanguage(); // USAMOS EL CONTEXTO EN LUGAR DE USO LOCAL
+  const { lang, setLang, t } = useLanguage();
   const [isLangOpen, setIsLangOpen] = useState(false);
 
   return (
@@ -24,19 +25,19 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           
-          {/* Logo - CAMBIADO SEGÚN TU REQUERIMIENTO */}
+          {/* Logo */}
           <div className="flex items-center gap-3">
             <a href="#inicio" className="block h-12 w-auto">
-              {/* Pon la ruta real de tu logo aquí (ej. /images/mi-logo.png) */}
+              {/* Cambia logo.png por el nombre real de tu imagen en la carpeta public */}
               <img 
-                src="/ruta-a-tu-logo.png" 
+                src="/logo.png" 
                 alt="Centro Artesanal Cusco Logo" 
                 className="h-full w-auto object-contain" 
               />
             </a>
           </div>
 
-          {/* Desktop Nav - AHORA USA TRADUCCIONES */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             <a href="#inicio" className="text-sm font-medium hover:text-mystic-gold transition-colors text-mystic-gold border-b-2 border-mystic-gold pb-1">{t('navInicio')}</a>
             <a href="#nosotros" className="text-sm font-medium text-mystic-light hover:text-mystic-gold transition-colors">{t('navHistoria')}</a>
@@ -54,7 +55,7 @@ export function Navbar() {
                 className="flex items-center gap-1.5 p-2 text-mystic-muted hover:text-mystic-gold transition-colors text-sm font-medium"
               >
                 <Globe className="w-5 h-5" />
-                <span>{lang}</span> {/* MUESTRA EL IDIOMA ACTUAL */}
+                <span>{lang}</span>
                 <ChevronDown className="w-4 h-4 opacity-70" />
               </button>
               
@@ -71,7 +72,7 @@ export function Navbar() {
                       <button
                         key={l.code}
                         onClick={() => {
-                          setLang(l.code as any); // CAMBIA EL IDIOMA GLOBAL
+                          setLang(l.code as any);
                           setIsLangOpen(false);
                         }}
                         className={`text-left px-4 py-3 text-sm transition-all duration-300 hover:bg-mystic-gold/10 hover:text-mystic-gold flex items-center justify-between group ${
