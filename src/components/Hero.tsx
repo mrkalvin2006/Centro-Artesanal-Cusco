@@ -17,8 +17,8 @@ export function Hero() {
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   
   // LÍNEAS CORREGIDAS (SIN COMAS DOBLES)
-  const y = useTransform(scrollYProgress,, ["0%", "30%"]);
-  const scale = useTransform(scrollYProgress,, [1.1, 1]);
+ const y = useTransform(scrollYProgress,, ["0%", "30%"]);
+const scale = useTransform(scrollYProgress,, [1.1, 1]);
 
   useEffect(() => {
     const timer = setInterval(() => {
