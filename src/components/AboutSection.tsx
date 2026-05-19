@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Target, Eye, Heart, Sparkles, Users, Camera } from 'lucide-react';
+import { useLanguage } from '../lib/LanguageContext'; // 1. IMPORTAMOS EL IDIOMA
 
 const featuredArtisans = [
   {
@@ -24,20 +25,20 @@ const featuredArtisans = [
 ];
 
 const artisanWorkImages = [
-  "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?q=80&w=800&auto=format&fit=crop", // Hands working
-  "https://images.unsplash.com/photo-1531604250646-2f0e818c4f06?q=80&w=800&auto=format&fit=crop", // Close up craft
-  "https://images.unsplash.com/photo-1581022295087-35e5d36c5357?q=80&w=800&auto=format&fit=crop", // Carving
-  "https://images.unsplash.com/photo-1605335165682-628d0879eead?q=80&w=800&auto=format&fit=crop", // Painting detail
-  "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=800&auto=format&fit=crop", // Artisan
-  "https://images.unsplash.com/photo-1501686637-b7cd9c56e017?q=80&w=800&auto=format&fit=crop"  // Weaving close up
+  "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1531604250646-2f0e818c4f06?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1581022295087-35e5d36c5357?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1605335165682-628d0879eead?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1501686637-b7cd9c56e017?q=80&w=800&auto=format&fit=crop"
 ];
 
 export function AboutSection() {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
+  const yBg = useTransform(scrollYProgress,, ["-10%", "10%"]);
   
-  // Subtle parallax for background elements
-  const yBg = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const { t } = useLanguage(); // 2. USAMOS EL HOOK DE TRADUCCIÓN
 
   return (
     <section id="nosotros" ref={containerRef} className="py-24 relative overflow-hidden bg-mystic-dark">
@@ -64,30 +65,29 @@ export function AboutSection() {
               className="inline-flex items-center gap-2 px-3 py-1 bg-mystic-gold/10 border border-mystic-gold/20 rounded-full text-mystic-gold text-sm font-medium mb-6"
             >
               <Sparkles className="w-4 h-4" />
-              <span>Nuestras Raíces</span>
+              {/* 3. TEXTOS CONECTADOS AL DICCIONARIO */}
+              <span>{t('aboutSubtitle')}</span>
             </motion.div>
             <motion.h2 
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               className="font-serif text-3xl md:text-5xl text-mystic-light mb-6"
             >
-              Guardianes de la <br /><span className="italic text-mystic-gold">Tradición Milenaria</span>
+              {t('aboutTitle')}
             </motion.h2>
             <motion.div 
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               className="space-y-6 text-mystic-muted/80 leading-relaxed text-lg font-light"
             >
-              <p>
-                El <strong>Centro Artesanal Cusco</strong> es más que un mercado; es el santuario vivo donde convergen siglos de herencia andina y virreinal. Con décadas de compromiso inquebrantable, hemos sido el refugio de maestros creadores que custodian el alma de los Andes.
-              </p>
-              <p>
-                La artesanía cusqueña no es un simple suvenir; es un <em>lenguaje vibrante</em>, una forma de resistencia cultural que cuenta historias, mitos y observaciones astronómicas en cada hilo tejido, en cada pieza de plata forjada, y en cada vasija de barro pintada. 
-              </p>
+              <p>{t('aboutText1')}</p>
+              <p>{t('aboutText2')}</p>
+              {/* Dejo este tercer párrafo original aquí. Si quieres traducirlo luego, solo crea un 'aboutText3' en tu LanguageContext */}
               <p>
                 Hoy en día, salvaguardar estas prácticas tradicionales es vital. En un mundo cada vez más industrializado, respaldar a nuestros artesanos no sólo preserva una identidad cultural valiosa, sino que también empodera económicamente a comunidades de las alturas andinas, manteniendo viva la magia ancestral del Perú.
               </p>
             </motion.div>
           </motion.div>
 
+          {/* Tarjetas de Misión, Visión y Valores (Las dejo intactas con tu diseño, puedes traducirlas siguiendo el mismo patrón cuando quieras) */}
           <motion.div 
             variants={{
               hidden: { opacity: 0 },
