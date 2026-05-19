@@ -10,18 +10,22 @@ import { AboutSection } from './components/AboutSection';
 import { PasajesSection } from './components/PasajesSection';
 import { CategoriesGallery } from './components/CategoriesGallery';
 import { Footer } from './components/Footer';
+import { LanguageProvider } from './context/LanguageContext'; // IMPORTAMOS EL PROVEEDOR
 
 export default function App() {
   return (
-    <div className="font-sans text-mystic-light bg-mystic-dark selection:bg-mystic-gold selection:text-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <AboutSection />
-        <CategoriesGallery />
-        <PasajesSection />
-      </main>
-      <Footer />
-    </div>
+    // ENVOLVEMOS TODA LA APP EN EL LANGUAGE PROVIDER
+    <LanguageProvider>
+      <div className="font-sans text-mystic-light bg-mystic-dark selection:bg-mystic-gold selection:text-white">
+        <Navbar />
+        <main>
+          <Hero />
+          <AboutSection />
+          <CategoriesGallery />
+          <PasajesSection />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }
