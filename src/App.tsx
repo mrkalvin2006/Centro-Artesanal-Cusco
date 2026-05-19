@@ -10,7 +10,7 @@ import { AboutSection } from './components/AboutSection';
 import { PasajesSection } from './components/PasajesSection';
 import { CategoriesGallery } from './components/CategoriesGallery';
 import { Footer } from './components/Footer';
-import { LanguageProvider } from './context/LanguageContext'; // IMPORTAMOS EL PROVEEDOR
+import { LanguageProvider } from './lib/LanguageContext'; // IMPORTAMOS EL PROVEEDOR
 
 export default function App() {
   return (

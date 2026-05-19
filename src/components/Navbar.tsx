@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, Search, Map, Globe, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useLanguage } from '../context/LanguageContext'; // IMPORTAMOS EL IDIOMA
+import { LanguageProvider } from './lib/LanguageContext'; // IMPORTAMOS EL IDIOMA
 
 const languages = [
   { code: 'ES', label: 'Español' },
