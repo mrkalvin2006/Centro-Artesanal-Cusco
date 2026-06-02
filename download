@@ -1,0 +1,127 @@
+import React, { createContext, useContext, useState } from 'react';
+
+export const translations = {
+  ES: {
+    navInicio: 'Inicio',
+    navHistoria: 'Nuestra Historia',
+    navCategorias: 'Categorías',
+    navPasajes: 'Pasajes',
+    navUbicacion: 'Ubicación',
+    navVisitanos: 'Visítanos',
+    welcomeKicker: 'Bienvenido a Cusco',
+    welcomeTitle: 'Centro Artesanal Cusco',
+    welcomeText: 'Explora tradición, cultura viva y arte hecho por manos cusqueñas.',
+    welcomeChoose: 'Elige tu idioma para iniciar la experiencia',
+    welcomeEnter: 'Ingresar a la página',
+    loadingText: 'Preparando experiencia cultural...',
+    heroTitleTop: 'Centro Artesanal',
+    heroTitleBottom: 'Cusco',
+    heroSubtitle: 'Un espacio dedicado a preservar, promover y compartir la riqueza artesanal de nuestra ciudad imperial.',
+    heroBtnExplore: 'Explorar ahora',
+    aboutSubtitle: 'Tradición viva',
+    aboutTitle: 'Arte, identidad y cultura cusqueña',
+    aboutText1: 'El Centro Artesanal Cusco reúne el talento de artesanos que mantienen vivas técnicas ancestrales transmitidas de generación en generación.',
+    aboutText2: 'Cada pieza representa historia, dedicación y la esencia cultural de los Andes peruanos.'
+  },
+  EN: {
+    navInicio: 'Home',
+    navHistoria: 'Our History',
+    navCategorias: 'Categories',
+    navPasajes: 'Directory',
+    navUbicacion: 'Location',
+    navVisitanos: 'Visit Us',
+    welcomeKicker: 'Welcome to Cusco',
+    welcomeTitle: 'Cusco Artisan Center',
+    welcomeText: 'Explore tradition, living culture, and art made by Cusco hands.',
+    welcomeChoose: 'Choose your language to start the experience',
+    welcomeEnter: 'Enter website',
+    loadingText: 'Preparing cultural experience...',
+    heroTitleTop: 'Artisan Center',
+    heroTitleBottom: 'Cusco',
+    heroSubtitle: 'A space dedicated to preserving, promoting, and sharing the artisan richness of our imperial city.',
+    heroBtnExplore: 'Explore now',
+    aboutSubtitle: 'Living tradition',
+    aboutTitle: 'Art, identity, and Cusco culture',
+    aboutText1: 'The Cusco Artisan Center brings together talented artisans who keep ancestral techniques alive from generation to generation.',
+    aboutText2: 'Each piece represents history, dedication, and the cultural essence of the Peruvian Andes.'
+  },
+  PT: {
+    navInicio: 'Início',
+    navHistoria: 'Nossa História',
+    navCategorias: 'Categorias',
+    navPasajes: 'Diretório',
+    navUbicacion: 'Localização',
+    navVisitanos: 'Visite-nos',
+    welcomeKicker: 'Bem-vindo a Cusco',
+    welcomeTitle: 'Centro Artesanal Cusco',
+    welcomeText: 'Explore tradição, cultura viva e arte feita por mãos cusquenhas.',
+    welcomeChoose: 'Escolha seu idioma para iniciar a experiência',
+    welcomeEnter: 'Entrar no site',
+    loadingText: 'Preparando experiência cultural...',
+    heroTitleTop: 'Centro Artesanal',
+    heroTitleBottom: 'Cusco',
+    heroSubtitle: 'Um espaço dedicado a preservar, promover e compartilhar a riqueza artesanal da nossa cidade imperial.',
+    heroBtnExplore: 'Explorar agora',
+    aboutSubtitle: 'Tradição viva',
+    aboutTitle: 'Arte, identidade e cultura de Cusco',
+    aboutText1: 'O Centro Artesanal Cusco reúne o talento de artesãos que mantêm vivas técnicas ancestrais transmitidas de geração em geração.',
+    aboutText2: 'Cada peça representa história, dedicação e a essência cultural dos Andes peruanos.'
+  },
+  RU: {
+    navInicio: 'Главная',
+    navHistoria: 'Наша история',
+    navCategorias: 'Категории',
+    navPasajes: 'Каталог',
+    navUbicacion: 'Локация',
+    navVisitanos: 'Посетите нас',
+    welcomeKicker: 'Добро пожаловать в Куско',
+    welcomeTitle: 'Ремесленный центр Куско',
+    welcomeText: 'Откройте для себя традиции, живую культуру и искусство мастеров Куско.',
+    welcomeChoose: 'Выберите язык, чтобы начать',
+    welcomeEnter: 'Перейти на сайт',
+    loadingText: 'Подготавливаем культурный опыт...',
+    heroTitleTop: 'Ремесленный центр',
+    heroTitleBottom: 'Куско',
+    heroSubtitle: 'Пространство, посвященное сохранению, продвижению и распространению ремесленного богатства нашего имперского города.',
+    heroBtnExplore: 'Исследовать',
+    aboutSubtitle: 'Живая традиция',
+    aboutTitle: 'Искусство, идентичность и культура Куско',
+    aboutText1: 'Ремесленный центр Куско объединяет талантливых мастеров, которые сохраняют древние техники из поколения в поколение.',
+    aboutText2: 'Каждое изделие отражает историю, dedicação и культурную сущность перуанских Анд.'
+  }
+};
+
+export type Language = keyof typeof translations;
+export type TranslationKey = keyof typeof translations.ES;
+
+const LanguageContext = createContext<{
+  lang: Language;
+  setLang: (lang: Language) => void;
+  t: (key: TranslationKey) => string;
+}>({
+  lang: 'ES',
+  setLang: () => {},
+  t: () => '',
+});
+
+export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
+  const [lang, setLangState] = useState<Language>(() => {
+    const saved = localStorage.getItem('cac_lang') as Language | null;
+    return saved && saved in translations ? saved : 'ES';
+  });
+
+  const setLang = (nextLang: Language) => {
+    localStorage.setItem('cac_lang', nextLang);
+    setLangState(nextLang);
+  };
+
+  const t = (key: TranslationKey) => translations[lang]?.[key] || translations.ES[key];
+
+  return (
+    <LanguageContext.Provider value={{ lang, setLang, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => useContext(LanguageContext);
