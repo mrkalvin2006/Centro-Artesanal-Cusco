@@ -18,7 +18,7 @@ export function Hero() {
   
   // LÍNEAS CORREGIDAS (SIN COMAS DOBLES)
  const y = useTransform(scrollYProgress,, ["0%", "30%"]);
-const scale = useTransform(scrollYProgress,, [1.1, 1]);
+ const scale = useTransform(scrollYProgress,, [1.1, 1]);
 
   useEffect(() => {
     const timer = setInterval(() => {
