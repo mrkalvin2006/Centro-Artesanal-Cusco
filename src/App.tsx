@@ -14,6 +14,9 @@ import { LanguageProvider } from './lib/LanguageContext';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { VisitUsSection } from './components/VisitUsSection';
 import { WelcomeGate } from './components/WelcomeGate';
+import { InstitutionalStats } from './components/InstitutionalStats';
+import { WhyVisitSection } from './components/WhyVisitSection';
+import { PremiumGallery } from './components/PremiumGallery';
 
 export default function App() {
   return (
@@ -26,9 +29,12 @@ export default function App() {
 
         <main>
           <Hero />
+          <InstitutionalStats />
           <AboutSection />
+          <WhyVisitSection />
           <CategoriesGallery />
           <PasajesSection />
+          <PremiumGallery />
           <VisitUsSection />
         </main>
 
