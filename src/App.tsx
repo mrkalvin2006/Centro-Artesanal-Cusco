@@ -11,6 +11,8 @@ import { PasajesSection } from './components/PasajesSection';
 import { CategoriesGallery } from './components/CategoriesGallery';
 import { Footer } from './components/Footer';
 import { LanguageProvider } from './lib/LanguageContext'; // IMPORTAMOS EL PROVEEDOR
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { VisitUsSection } from './components/VisitUsSection';
 
 export default function App() {
   return (
@@ -25,6 +27,7 @@ export default function App() {
           <PasajesSection />
         </main>
         <Footer />
+        <FloatingWhatsApp />
       </div>
     </LanguageProvider>
   );

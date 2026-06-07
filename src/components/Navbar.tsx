@@ -1,88 +1,114 @@
 import React, { useState } from 'react';
-import { Menu, Search, Map, Globe, ChevronDown } from 'lucide-react';
+import {
+  Menu,
+  X,
+  Map,
+  Globe,
+  ChevronDown,
+  MessageCircle,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-// ¡ESTA ES LA LÍNEA QUE FALTABA O ESTABA MAL! 👇
 import { useLanguage } from '../lib/LanguageContext';
 
 const languages = [
-  { code: 'ES', label: 'Español' },
-  { code: 'EN', label: 'English' },
-  { code: 'PT', label: 'Português' },
-  { code: 'RU', label: 'Русский' }
+  { code: 'ES', label: 'Español', flag: '🇵🇪' },
+  { code: 'EN', label: 'English', flag: '🇺🇸' },
+  { code: 'PT', label: 'Português', flag: '🇧🇷' },
+];
+
+const navLinks = [
+  { href: '#inicio', key: 'navInicio' },
+  { href: '#nosotros', key: 'navHistoria' },
+  { href: '#categorias', key: 'navCategorias' },
+  { href: '#pasajes', key: 'navPasajes' },
+  { href: '#ubicacion', key: 'navUbicacion' },
 ];
 
 export function Navbar() {
   const { lang, setLang, t } = useLanguage();
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const closeMobile = () => setIsMobileOpen(false);
 
   return (
-    <motion.nav 
+    <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="sticky top-0 z-50 bg-mystic-dark/90 backdrop-blur-md border-b border-mystic-gold/20"
+      className="sticky top-0 z-50 border-b border-mystic-gold/20 bg-mystic-dark/90 backdrop-blur-xl"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <a href="#inicio" className="block h-12 w-auto">
-              {/* Cambia logo.png por el nombre real de tu imagen en la carpeta public */}
-              <img 
-                src="/logo.png" 
-                alt="Centro Artesanal Cusco Logo" 
-                className="h-full w-auto object-contain" 
-              />
-            </a>
-          </div>
+        <div className="flex h-20 items-center justify-between">
+          <a href="#inicio" className="flex items-center gap-3" onClick={closeMobile}>
+            <img
+              src="/logo.png"
+              alt="Centro Artesanal Cusco"
+              className="h-12 w-auto object-contain"
+            />
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#inicio" className="text-sm font-medium hover:text-mystic-gold transition-colors text-mystic-gold border-b-2 border-mystic-gold pb-1">{t('navInicio')}</a>
-            <a href="#nosotros" className="text-sm font-medium text-mystic-light hover:text-mystic-gold transition-colors">{t('navHistoria')}</a>
-            <a href="#categorias" className="text-sm font-medium text-mystic-light hover:text-mystic-gold transition-colors">{t('navCategorias')}</a>
-            <a href="#pasajes" className="text-sm font-medium text-mystic-light hover:text-mystic-gold transition-colors">{t('navPasajes')}</a>
-            <a href="#mapa" className="text-sm font-medium text-mystic-light hover:text-mystic-gold transition-colors">{t('navUbicacion')}</a>
-          </div>
+            <div className="hidden sm:block leading-tight">
+              <p className="font-serif text-lg text-white">
+                Centro Artesanal
+              </p>
+              <p className="text-xs tracking-[0.28em] text-mystic-gold uppercase">
+                Cusco
+              </p>
+            </div>
+          </a>
 
-          {/* Actions */}
-          <div className="hidden md:flex items-center gap-4">
-            {/* Language Selector */}
-            <div className="relative">
-              <button 
-                onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-1.5 p-2 text-mystic-muted hover:text-mystic-gold transition-colors text-sm font-medium"
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-mystic-light hover:text-mystic-gold transition-colors"
               >
-                <Globe className="w-5 h-5" />
+                {t(item.key as any)}
+              </a>
+            ))}
+          </div>
+
+          <div className="hidden lg:flex items-center gap-4">
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                className="flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-sm font-medium text-mystic-muted hover:border-mystic-gold/40 hover:text-mystic-gold transition-colors"
+              >
+                <Globe className="w-4 h-4" />
                 <span>{lang}</span>
                 <ChevronDown className="w-4 h-4 opacity-70" />
               </button>
-              
+
               <AnimatePresence>
                 {isLangOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.96 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute right-0 mt-2 w-40 bg-mystic-gray border border-mystic-gold/20 rounded-xl shadow-xl overflow-hidden z-50 flex flex-col"
+                    className="absolute right-0 mt-3 w-48 overflow-hidden rounded-2xl border border-mystic-gold/20 bg-mystic-gray shadow-2xl"
                   >
                     {languages.map((l) => (
                       <button
                         key={l.code}
+                        type="button"
                         onClick={() => {
                           setLang(l.code as any);
                           setIsLangOpen(false);
                         }}
-                        className={`text-left px-4 py-3 text-sm transition-all duration-300 hover:bg-mystic-gold/10 hover:text-mystic-gold flex items-center justify-between group ${
-                          lang === l.code ? 'text-mystic-gold font-bold bg-mystic-gold/5' : 'text-mystic-light/90 font-medium'
+                        className={`flex w-full items-center justify-between px-4 py-3 text-left text-sm transition-all hover:bg-mystic-gold/10 hover:text-mystic-gold ${
+                          lang === l.code
+                            ? 'bg-mystic-gold/10 text-mystic-gold font-bold'
+                            : 'text-mystic-light'
                         }`}
                       >
-                        <span className="tracking-wide">{l.label}</span>
-                        <span className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          lang === l.code ? 'bg-mystic-gold shadow-[0_0_8px_rgba(212,175,55,0.8)] scale-100' : 'bg-transparent scale-0 group-hover:bg-mystic-gold/30 group-hover:scale-100'
-                        }`}></span>
+                        <span className="flex items-center gap-2">
+                          <span>{l.flag}</span>
+                          {l.label}
+                        </span>
+                        <span>{l.code}</span>
                       </button>
                     ))}
                   </motion.div>
@@ -90,24 +116,99 @@ export function Navbar() {
               </AnimatePresence>
             </div>
 
-            <button className="p-2 text-mystic-muted hover:text-mystic-gold transition-colors hidden sm:flex">
-              <Search className="w-5 h-5" />
-            </button>
-            <button className="bg-mystic-gold hover:bg-mystic-gold-light text-white px-6 py-2.5 rounded-sm font-medium text-sm transition-all duration-300 flex items-center gap-2 shadow-lg shadow-mystic-gold/20">
+            <a
+              href="#ubicacion"
+              className="flex items-center gap-2 rounded-full bg-mystic-gold px-5 py-2.5 text-sm font-bold text-black shadow-lg shadow-mystic-gold/20 transition-all hover:scale-105 hover:bg-mystic-gold-light"
+            >
               <Map className="w-4 h-4" />
-              {t('navVisitanos')}
-            </button>
+              {t('navVisitanos' as any)}
+            </a>
+
+            <a
+              href="https://wa.me/51999999999"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-full border border-mystic-gold/40 px-4 py-2.5 text-sm font-bold text-mystic-gold transition-all hover:bg-mystic-gold hover:text-black"
+            >
+              <MessageCircle className="w-4 h-4" />
+              WhatsApp
+            </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-4">
-             <button className="p-2 text-mystic-muted">
-              <Menu className="w-6 h-6" />
-            </button>
-          </div>
-
+          <button
+            type="button"
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            className="lg:hidden rounded-full border border-white/10 p-2 text-mystic-light"
+          >
+            {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isMobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden border-t border-mystic-gold/10 bg-mystic-dark/95 backdrop-blur-xl"
+          >
+            <div className="px-4 py-5 space-y-3">
+              {navLinks.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMobile}
+                  className="block rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-mystic-light hover:border-mystic-gold/40 hover:text-mystic-gold"
+                >
+                  {t(item.key as any)}
+                </a>
+              ))}
+
+              <div className="grid grid-cols-3 gap-2 pt-3">
+                {languages.map((l) => (
+                  <button
+                    key={l.code}
+                    type="button"
+                    onClick={() => {
+                      setLang(l.code as any);
+                      setIsMobileOpen(false);
+                    }}
+                    className={`rounded-xl border px-3 py-3 text-sm ${
+                      lang === l.code
+                        ? 'border-mystic-gold bg-mystic-gold/15 text-mystic-gold'
+                        : 'border-white/10 bg-white/5 text-mystic-light'
+                    }`}
+                  >
+                    <div>{l.flag}</div>
+                    <div>{l.code}</div>
+                  </button>
+                ))}
+              </div>
+
+              <a
+                href="#ubicacion"
+                onClick={closeMobile}
+                className="flex items-center justify-center gap-2 rounded-xl bg-mystic-gold px-5 py-4 font-bold text-black"
+              >
+                <Map className="w-5 h-5" />
+                {t('navVisitanos' as any)}
+              </a>
+
+              <a
+                href="https://wa.me/51999999999"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMobile}
+                className="flex items-center justify-center gap-2 rounded-xl border border-mystic-gold/40 px-5 py-4 font-bold text-mystic-gold"
+              >
+                <MessageCircle className="w-5 h-5" />
+                WhatsApp
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }
