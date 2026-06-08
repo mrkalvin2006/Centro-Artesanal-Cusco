@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Menu,
   X,
@@ -21,6 +21,7 @@ const navLinks = [
   { href: '#nosotros', key: 'navHistoria' },
   { href: '#categorias', key: 'navCategorias' },
   { href: '#pasajes', key: 'navPasajes' },
+  { href: '#galeria', key: 'Galería' },
   { href: '#ubicacion', key: 'navUbicacion' },
 ];
 
@@ -28,24 +29,63 @@ export function Navbar() {
   const { lang, setLang, t } = useLanguage();
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const closeMobile = () => setIsMobileOpen(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll);
+
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const getLabel = (key: string) => {
+    if (key === 'Galería') return 'Galería';
+    return t(key as any);
+  };
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="sticky top-0 z-50 border-b border-mystic-gold/20 bg-mystic-dark/90 backdrop-blur-xl"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled || isMobileOpen
+          ? 'border-b border-mystic-gold/20 bg-mystic-dark/90 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]'
+          : 'border-b border-transparent bg-transparent'
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
-          <a href="#inicio" className="flex items-center gap-3" onClick={closeMobile}>
-            <img
-              src="/logo.png"
-              alt="Centro Artesanal Cusco"
-              className="h-12 w-auto object-contain"
-            />
+        <div
+          className={`flex items-center justify-between transition-all duration-500 ${
+            scrolled ? 'h-16' : 'h-20'
+          }`}
+        >
+          <a
+            href="#inicio"
+            className="flex items-center gap-3"
+            onClick={closeMobile}
+          >
+            <div
+              className={`rounded-full transition-all duration-500 ${
+                scrolled
+                  ? 'bg-white/5 p-1'
+                  : 'bg-black/20 p-1.5 backdrop-blur'
+              }`}
+            >
+              <img
+                src="/logo.png"
+                alt="Centro Artesanal Cusco"
+                className={`w-auto object-contain transition-all duration-500 ${
+                  scrolled ? 'h-10' : 'h-12'
+                }`}
+              />
+            </div>
 
             <div className="hidden sm:block leading-tight">
               <p className="font-serif text-lg text-white">
@@ -57,14 +97,14 @@ export function Navbar() {
             </div>
           </a>
 
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-7">
             {navLinks.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-mystic-light hover:text-mystic-gold transition-colors"
+                className="text-sm font-medium text-white/90 hover:text-mystic-gold transition-colors"
               >
-                {t(item.key as any)}
+                {getLabel(item.key)}
               </a>
             ))}
           </div>
@@ -74,7 +114,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-sm font-medium text-mystic-muted hover:border-mystic-gold/40 hover:text-mystic-gold transition-colors"
+                className="flex items-center gap-2 rounded-full border border-white/15 bg-black/20 px-3 py-2 text-sm font-medium text-white/80 hover:border-mystic-gold/40 hover:text-mystic-gold transition-colors backdrop-blur"
               >
                 <Globe className="w-4 h-4" />
                 <span>{lang}</span>
@@ -128,7 +168,7 @@ export function Navbar() {
               href="https://wa.me/51999999999"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-mystic-gold/40 px-4 py-2.5 text-sm font-bold text-mystic-gold transition-all hover:bg-mystic-gold hover:text-black"
+              className="flex items-center gap-2 rounded-full border border-mystic-gold/40 bg-black/20 px-4 py-2.5 text-sm font-bold text-mystic-gold transition-all hover:bg-mystic-gold hover:text-black backdrop-blur"
             >
               <MessageCircle className="w-4 h-4" />
               WhatsApp
@@ -138,9 +178,13 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="lg:hidden rounded-full border border-white/10 p-2 text-mystic-light"
+            className="lg:hidden rounded-full border border-white/15 bg-black/20 p-2 text-white backdrop-blur"
           >
-            {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
@@ -161,7 +205,7 @@ export function Navbar() {
                   onClick={closeMobile}
                   className="block rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-mystic-light hover:border-mystic-gold/40 hover:text-mystic-gold"
                 >
-                  {t(item.key as any)}
+                  {getLabel(item.key)}
                 </a>
               ))}
 
