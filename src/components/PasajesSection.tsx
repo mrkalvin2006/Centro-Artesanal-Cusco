@@ -1,6 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { Search, Map as MapIcon, AppWindow, MapPin, Palette } from 'lucide-react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import {
+  Search,
+  Map as MapIcon,
+  AppWindow,
+  MapPin,
+  Palette,
+  X,
+  Store,
+  Image as ImageIcon,
+} from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -17,6 +26,13 @@ L.Icon.Default.mergeOptions({
 
 const centerLat = -13.5226;
 const centerLng = -71.9706;
+
+const referenceImages = [
+  'https://images.unsplash.com/photo-1580665971489-3dfccc07ce71?q=80&w=1200&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1526392060635-9d60198d3fe3?q=80&w=1200&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=1200&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=1200&auto=format&fit=crop',
+];
 
 const pasajesBase = [
   { id: 1, name: 'Calle Tullumayo', stands: 31 },
@@ -54,9 +70,12 @@ const pasajes = pasajesBase.map((pasaje, i) => {
   return {
     ...pasaje,
     description: `${pasaje.stands} stands · Artesanía variada`,
+    image: referenceImages[i % referenceImages.length],
     position: [lat, lng] as [number, number],
   };
 });
+
+type Pasaje = (typeof pasajes)[number];
 
 const stats = [
   { icon: AppWindow, title: 'Más de', val: '360 Stands' },
@@ -85,6 +104,7 @@ function MapController({ activeId }: { activeId: number | null }) {
 export function PasajesSection() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activePasaje, setActivePasaje] = useState<number | null>(null);
+  const [selectedPasaje, setSelectedPasaje] = useState<Pasaje | null>(null);
 
   const ref = useRef<HTMLElement>(null);
 
@@ -98,6 +118,15 @@ export function PasajesSection() {
   const filteredPasajes = pasajes.filter((p) =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const openPasaje = (pasaje: Pasaje) => {
+    setActivePasaje(pasaje.id);
+    setSelectedPasaje(pasaje);
+  };
+
+  const closeModal = () => {
+    setSelectedPasaje(null);
+  };
 
   return (
     <section
@@ -177,9 +206,10 @@ export function PasajesSection() {
             const isActive = activePasaje === pasaje.id;
 
             return (
-              <motion.div
+              <motion.button
+                type="button"
                 key={pasaje.id}
-                onClick={() => setActivePasaje(isActive ? null : pasaje.id)}
+                onClick={() => openPasaje(pasaje)}
                 initial={{ opacity: 0, y: 20, scale: 0.96 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-50px' }}
@@ -189,7 +219,7 @@ export function PasajesSection() {
                   ease: 'easeOut',
                 }}
                 whileHover={{ scale: 1.03, y: -4 }}
-                className={`group cursor-pointer rounded-2xl border p-5 transition-all shadow-sm hover:shadow-xl ${
+                className={`group cursor-pointer rounded-2xl border p-5 text-left transition-all shadow-sm hover:shadow-xl ${
                   isActive
                     ? 'bg-mystic-gold border-mystic-gold text-black'
                     : 'bg-mystic-gray border-mystic-gold/10 hover:border-mystic-gold/40'
@@ -232,7 +262,7 @@ export function PasajesSection() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </motion.button>
             );
           })}
         </div>
@@ -256,7 +286,7 @@ export function PasajesSection() {
             className="w-full h-full bg-mystic-gray"
           >
             <TileLayer
-              attribution='&copy; OpenStreetMap contributors'
+              attribution="&copy; OpenStreetMap contributors"
               url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
             />
 
@@ -265,7 +295,7 @@ export function PasajesSection() {
                 key={pasaje.id}
                 position={pasaje.position}
                 eventHandlers={{
-                  click: () => setActivePasaje(pasaje.id),
+                  click: () => openPasaje(pasaje),
                 }}
               >
                 <Popup className="font-sans">
@@ -298,6 +328,105 @@ export function PasajesSection() {
           </motion.a>
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedPasaje && (
+          <motion.div
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75 p-4 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <motion.div
+              className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-mystic-gold/30 bg-mystic-darker shadow-2xl"
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 30 }}
+              transition={{ duration: 0.25 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={closeModal}
+                className="absolute right-4 top-4 z-20 rounded-full bg-black/60 p-3 text-white backdrop-blur transition-all hover:bg-mystic-gold hover:text-black"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="relative h-72 md:h-full min-h-[360px] overflow-hidden">
+                  <img
+                    src={selectedPasaje.image}
+                    alt={selectedPasaje.name}
+                    className="h-full w-full object-cover"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+
+                  <div className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full bg-black/55 px-4 py-2 text-sm text-mystic-gold backdrop-blur">
+                    <ImageIcon className="h-4 w-4" />
+                    Imagen referencial
+                  </div>
+                </div>
+
+                <div className="p-7 md:p-9">
+                  <p className="mb-3 text-sm uppercase tracking-[0.3em] text-mystic-gold">
+                    Centro Artesanal Cusco
+                  </p>
+
+                  <h3 className="font-serif text-4xl text-white mb-5">
+                    {selectedPasaje.name}
+                  </h3>
+
+                  <p className="text-mystic-muted/80 leading-relaxed mb-7">
+                    Espacio dedicado a la exposición y venta de artesanía
+                    variada, donde visitantes y turistas pueden encontrar
+                    productos con identidad cultural cusqueña.
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    <div className="rounded-2xl border border-mystic-gold/20 bg-mystic-dark p-5">
+                      <Store className="mb-3 h-7 w-7 text-mystic-gold" />
+                      <p className="text-3xl font-serif text-white">
+                        {selectedPasaje.stands}
+                      </p>
+                      <p className="text-sm text-mystic-muted/70">stands</p>
+                    </div>
+
+                    <div className="rounded-2xl border border-mystic-gold/20 bg-mystic-dark p-5">
+                      <Palette className="mb-3 h-7 w-7 text-mystic-gold" />
+                      <p className="font-serif text-xl text-white">
+                        Artesanía
+                      </p>
+                      <p className="text-sm text-mystic-muted/70">variada</p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a
+                      href="#ubicacion"
+                      onClick={closeModal}
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-mystic-gold px-6 py-3 font-bold text-black transition-all hover:scale-105"
+                    >
+                      <MapPin className="h-5 w-5" />
+                      Ver ubicación
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className="inline-flex items-center justify-center rounded-full border border-mystic-gold/30 px-6 py-3 font-bold text-mystic-gold transition-all hover:bg-mystic-gold hover:text-black"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
