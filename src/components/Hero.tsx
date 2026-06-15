@@ -17,95 +17,145 @@ export function Hero() {
     offset: ['start start', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '38%']);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.12, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.25]);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.2]);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
 
   return (
     <section
       ref={containerRef}
       id="inicio"
-      className="relative h-screen min-h-[720px] flex items-center overflow-hidden bg-black"
+      className="relative h-screen min-h-[800px] overflow-hidden bg-black"
     >
+      {/* FOTO PARALLAX */}
       <motion.div
-        style={{ y, scale, opacity }}
-        className="absolute inset-0 z-0 h-[125%] -top-[12%] bg-cover bg-center bg-no-repeat"
         style={{
           y,
           scale,
           opacity,
-          backgroundImage: 'url("/hero-cac.webp")',
+          backgroundImage: 'url("/hero-cac.jpg")',
+          backgroundPosition: 'center 35%',
         }}
+        className="absolute inset-0 z-0 h-[130%] -top-[15%] bg-cover bg-no-repeat"
       />
 
-      <div className="absolute inset-0 bg-black/45" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-mystic-dark via-transparent to-transparent" />
+      {/* OVERLAYS */}
+      <div className="absolute inset-0 bg-black/60 z-[1]" />
 
-      <div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.13),transparent_45%)]" />
+      <div className="absolute inset-0 z-[2] bg-gradient-to-r from-black via-black/80 to-black/20" />
 
+      <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black via-transparent to-transparent" />
+
+      <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_75%_40%,rgba(212,175,55,0.18),transparent_45%)]" />
+
+      {/* CONTENIDO */}
       <motion.div
         style={{ y: textY }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 pt-24"
+        className="relative z-10 h-full flex items-center"
       >
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-mystic-gold/30 bg-black/35 backdrop-blur text-mystic-gold text-sm mb-8">
-            <Sparkles className="w-4 h-4" />
-            {t('heroBadge')}
-          </div>
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full">
+          <div className="max-w-3xl">
+            {/* BADGE */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-mystic-gold/30 bg-black/40 backdrop-blur-md text-mystic-gold text-sm mb-6">
+              <Sparkles className="w-4 h-4" />
+              Arte • Tradición • Cultura Viva
+            </div>
 
-          <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl text-white mb-7 leading-[0.95] drop-shadow-2xl">
-            Centro <br />
-            Artesanal <br />
-            <span
-              className="text-mystic-gold"
-              style={{ textShadow: '0 0 45px rgba(212, 175, 55, 0.45)' }}
+            {/* STATS */}
+            <div className="flex flex-wrap gap-3 mb-8">
+              <span className="px-4 py-2 rounded-full bg-mystic-gold/10 border border-mystic-gold/25 text-mystic-gold text-sm">
+                24 Pasajes
+              </span>
+
+              <span className="px-4 py-2 rounded-full bg-mystic-gold/10 border border-mystic-gold/25 text-mystic-gold text-sm">
+                +300 Artesanos
+              </span>
+
+              <span className="px-4 py-2 rounded-full bg-mystic-gold/10 border border-mystic-gold/25 text-mystic-gold text-sm">
+                Cultura Viva del Cusco
+              </span>
+            </div>
+
+            {/* TITULO */}
+            <h1
+              className="font-serif text-6xl md:text-8xl lg:text-[9rem] text-white leading-[0.9] mb-8"
+              style={{
+                textShadow:
+                  '0 10px 40px rgba(0,0,0,0.8)',
+              }}
             >
-              Cusco
-            </span>
-          </h1>
+              Centro
+              <br />
+              Artesanal
+              <br />
 
-          <p className="text-lg md:text-2xl text-mystic-light mb-10 max-w-2xl leading-relaxed font-light opacity-95">
-            Descubre artesanías, textiles, joyería, cerámica y recuerdos únicos
-            en el corazón de la ciudad imperial.
-          </p>
+              <span
+                className="text-mystic-gold"
+                style={{
+                  textShadow:
+                    '0 0 50px rgba(212,175,55,0.45)',
+                }}
+              >
+                Cusco
+              </span>
+            </h1>
 
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-            <a
-              href="#pasajes"
-              className="bg-mystic-gold hover:bg-mystic-gold-light text-black px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_25px_rgba(212,175,55,0.35)]"
-            >
-              <Compass className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-              Explorar Pasajes
-            </a>
+            {/* DESCRIPCIÓN */}
+            <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mb-10">
+              Descubre artesanías, textiles, joyería, cerámica,
+              arte tradicional y recuerdos únicos elaborados por
+              maestros artesanos en el corazón de la ciudad imperial.
+            </p>
 
-            <a
-              href="#ubicacion"
-              className="border border-white/25 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur"
-            >
-              <MapPin className="w-5 h-5" />
-              Cómo Llegar
-            </a>
+            {/* BOTONES */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="#pasajes"
+                className="bg-mystic-gold hover:bg-mystic-gold-light text-black px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-105"
+              >
+                <Compass className="w-5 h-5" />
+                Explorar Pasajes
+              </a>
 
-            <a
-              href="https://wa.me/51999999999"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-mystic-gold/40 bg-black/35 hover:bg-mystic-gold hover:text-black text-mystic-gold px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Contactar
-            </a>
+              <a
+                href="#ubicacion"
+                className="border border-white/25 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur"
+              >
+                <MapPin className="w-5 h-5" />
+                Cómo Llegar
+              </a>
+
+              <a
+                href="https://wa.me/51999999999"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border border-mystic-gold/40 bg-black/40 hover:bg-mystic-gold hover:text-black text-mystic-gold px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Contactar
+              </a>
+            </div>
           </div>
         </div>
       </motion.div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 text-white/60">
-        <span className="text-xs tracking-[0.3em] uppercase">
+      {/* SCROLL INDICATOR */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center">
+        <span className="text-xs tracking-[0.35em] uppercase text-white/60 mb-2">
           Scroll
         </span>
-        <div className="h-12 w-[1px] bg-gradient-to-b from-mystic-gold to-transparent" />
+
+        <motion.div
+          animate={{
+            y: [0, 12, 0],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+          }}
+          className="h-14 w-[2px] bg-gradient-to-b from-mystic-gold to-transparent"
+        />
       </div>
     </section>
   );
