@@ -2,15 +2,21 @@ import React, { useEffect, useState } from 'react';
 import {
   Menu,
   X,
-  Map,
   Globe,
   ChevronDown,
-  MessageCircle,
+  Facebook,
+  Instagram
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../lib/LanguageContext';
 
-// 1. Añadimos las banderas (flags) para que el selector se vea visualmente atractivo
+// 1. Ícono de TikTok Personalizado
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 1.25.29V9.45a6.27 6.27 0 0 0-1.7-.24 6.33 6.33 0 0 0-6.33 6.33 6.33 6.33 0 0 0 6.33 6.33 6.33 6.33 0 0 0 6.33-6.27v-6.9a8.1 8.1 0 0 0 4.23 1.2V6.44a4.88 4.88 0 0 1-2.02-.24z"/>
+  </svg>
+);
+
 const languages = [
   { code: 'ES', label: 'Español', flag: '🇵🇪' },
   { code: 'EN', label: 'English', flag: '🇺🇸' },
@@ -19,13 +25,18 @@ const languages = [
   { code: 'ZH', label: '中文', flag: '🇨🇳' } 
 ];
 
-// 2. Corregimos las rutas (href) y quitamos "Pasajes"
 const navLinks = [
   { href: '#inicio', key: 'navInicio' },
   { href: '#nosotros', key: 'navHistoria' },
-  { href: '#directorio', key: 'navCategorias' }, // Apunta al nuevo Directorio
-  { href: '#galeria', key: 'navGaleria' },       // Apunta a la Galería Premium
+  { href: '#directorio', key: 'navCategorias' },
+  { href: '#galeria', key: 'navGaleria' },
   { href: '#ubicacion', key: 'navUbicacion' },
+];
+
+const socialLinks = [
+  { icon: Facebook, href: 'https://www.facebook.com/centroArtesanalcusco', label: 'Facebook' },
+  { icon: Instagram, href: 'https://www.instagram.com/centroartesanaldelcusco/', label: 'Instagram' },
+  { icon: TikTokIcon, href: 'https://www.tiktok.com/@centroartesanal_cusco', label: 'TikTok' },
 ];
 
 export function Navbar() {
@@ -104,13 +115,12 @@ export function Navbar() {
                 href={item.href}
                 className="text-sm font-medium text-white/90 hover:text-mystic-gold transition-colors"
               >
-                {/* Ahora usa el traductor directamente */}
                 {t(item.key as any)}
               </a>
             ))}
           </div>
 
-          {/* BOTONES DERECHOS (ESCRITORIO) */}
+          {/* ZONA DERECHA (ESCRITORIO) */}
           <div className="hidden lg:flex items-center gap-4">
             
             {/* SELECTOR DE IDIOMAS */}
@@ -160,23 +170,25 @@ export function Navbar() {
               </AnimatePresence>
             </div>
 
-            <a
-              href="#ubicacion"
-              className="flex items-center gap-2 rounded-full bg-mystic-gold px-5 py-2.5 text-sm font-bold text-black shadow-lg shadow-mystic-gold/20 transition-all hover:scale-105 hover:bg-mystic-gold-light"
-            >
-              <Map className="w-4 h-4" />
-              {t('navVisitanos' as any)}
-            </a>
-
-            <a
-              href="https://wa.me/51999999999"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-mystic-gold/40 bg-black/20 px-4 py-2.5 text-sm font-bold text-mystic-gold transition-all hover:bg-mystic-gold hover:text-black backdrop-blur"
-            >
-              <MessageCircle className="w-4 h-4" />
-              WhatsApp
-            </a>
+            {/* REDES SOCIALES NAVBAR */}
+            <div className="flex items-center gap-2 border-l border-white/15 pl-4">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full border border-white/15 bg-black/20 flex items-center justify-center text-white/80 hover:bg-mystic-gold hover:border-mystic-gold hover:text-black transition-all duration-300 backdrop-blur hover:scale-110"
+                    aria-label={social.label}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                );
+              })}
+            </div>
+            
           </div>
 
           {/* BOTÓN HAMBURGUESA (MÓVIL) */}
@@ -209,9 +221,8 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobile}
-                  className="block rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-mystic-light hover:border-mystic-gold/40 hover:text-mystic-gold"
+                  className="block rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-mystic-light hover:border-mystic-gold/40 hover:text-mystic-gold transition-colors"
                 >
-                  {/* Traducción dinámica */}
                   {t(item.key as any)}
                 </a>
               ))}
@@ -237,27 +248,25 @@ export function Navbar() {
                 ))}
               </div>
 
-              <div className="grid grid-cols-2 gap-3 pt-2">
-                <a
-                  href="#ubicacion"
-                  onClick={closeMobile}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-mystic-gold px-4 py-4 font-bold text-black"
-                >
-                  <Map className="w-4 h-4" />
-                  {t('navVisitanos' as any)}
-                </a>
-
-                <a
-                  href="https://wa.me/51999999999"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMobile}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-mystic-gold/40 px-4 py-4 font-bold text-mystic-gold"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  WhatsApp
-                </a>
+              {/* REDES SOCIALES MÓVIL */}
+              <div className="flex items-center justify-center gap-4 pt-5 pb-2 border-t border-white/10 mt-4">
+                {socialLinks.map((social) => {
+                  const Icon = social.icon;
+                  return (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full border border-white/15 bg-white/5 flex items-center justify-center text-mystic-light hover:bg-mystic-gold hover:border-mystic-gold hover:text-black transition-all duration-300"
+                      aria-label={social.label}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </a>
+                  );
+                })}
               </div>
+
             </div>
           </motion.div>
         )}
