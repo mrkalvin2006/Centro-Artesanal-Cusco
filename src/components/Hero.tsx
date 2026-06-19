@@ -14,7 +14,6 @@ export function Hero() {
   const { t } = useLanguage();
   const [current, setCurrent] = useState(0);
 
-  // Mover los slides adentro para poder usar la función t()
   const slides = [
     {
       image: '/hero-cac.jpg',
@@ -80,11 +79,18 @@ export function Hero() {
         </motion.div>
       </AnimatePresence>
 
-      {/* OVERLAYS */}
-      <div className="absolute inset-0 bg-black/55 z-[1]" />
-      <div className="absolute inset-0 z-[2] bg-gradient-to-r from-black via-black/70 to-black/20" />
-      <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black via-transparent to-transparent" />
-      <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_75%_40%,rgba(212,175,55,0.20),transparent_45%)]" />
+      {/* OVERLAYS MEJORADOS (MÁS TRANSPARENTES) */}
+      {/* 1. Capa base súper sutil (solo 20% de opacidad en vez de 55%) */}
+      <div className="absolute inset-0 bg-black/20 z-[1]" />
+      
+      {/* 2. Gradiente horizontal suave: Oscuro a la izquierda solo para el texto, casi invisible a la derecha */}
+      <div className="absolute inset-0 z-[2] bg-gradient-to-r from-black/80 via-black/30 to-transparent" />
+      
+      {/* 3. Gradiente vertical inferior: Solo para que destaquen las flechas y las barras de progreso */}
+      <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+      
+      {/* 4. Resplandor dorado suave en el lado derecho */}
+      <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_75%_40%,rgba(212,175,55,0.15),transparent_50%)]" />
 
       {/* CONTENT */}
       <div className="relative z-10 h-full flex items-center">
@@ -102,13 +108,13 @@ export function Hero() {
             </motion.div>
 
             <div className="flex flex-wrap gap-3 mb-8">
-              <span className="px-4 py-2 rounded-full bg-mystic-gold/10 border border-mystic-gold/25 text-mystic-gold text-sm">
+              <span className="px-4 py-2 rounded-full bg-black/30 backdrop-blur-sm border border-mystic-gold/25 text-mystic-gold text-sm">
                 {t('heroStat1')}
               </span>
-              <span className="px-4 py-2 rounded-full bg-mystic-gold/10 border border-mystic-gold/25 text-mystic-gold text-sm">
+              <span className="px-4 py-2 rounded-full bg-black/30 backdrop-blur-sm border border-mystic-gold/25 text-mystic-gold text-sm">
                 {t('heroStat2')}
               </span>
-              <span className="px-4 py-2 rounded-full bg-mystic-gold/10 border border-mystic-gold/25 text-mystic-gold text-sm">
+              <span className="px-4 py-2 rounded-full bg-black/30 backdrop-blur-sm border border-mystic-gold/25 text-mystic-gold text-sm">
                 {t('heroStat3')}
               </span>
             </div>
@@ -123,7 +129,7 @@ export function Hero() {
               >
                 <h1
                   className="font-serif text-5xl md:text-8xl lg:text-[9rem] text-white leading-[0.9] mb-8"
-                  style={{ textShadow: '0 12px 60px rgba(0,0,0,0.95)' }}
+                  style={{ textShadow: '0 8px 30px rgba(0,0,0,0.8)' }}
                 >
                   {slides[current].title}
                   <br />
@@ -131,13 +137,16 @@ export function Hero() {
                   <br />
                   <span
                     className="text-mystic-gold"
-                    style={{ textShadow: '0 0 50px rgba(212,175,55,0.45)' }}
+                    style={{ textShadow: '0 0 40px rgba(212,175,55,0.6)' }}
                   >
                     {slides[current].title3}
                   </span>
                 </h1>
 
-                <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mb-10">
+                <p 
+                  className="text-lg md:text-2xl text-white/95 leading-relaxed max-w-2xl mb-10 font-medium"
+                  style={{ textShadow: '0 4px 15px rgba(0,0,0,0.9)' }}
+                >
                   {slides[current].description}
                 </p>
               </motion.div>
@@ -155,7 +164,7 @@ export function Hero() {
 
               <a
                 href="#ubicacion"
-                className="border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/15 text-white px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2"
+                className="border border-white/20 bg-black/30 backdrop-blur-xl hover:bg-white/15 text-white px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <MapPin className="w-5 h-5" />
                 {t('heroBtnLocation')}
@@ -165,7 +174,7 @@ export function Hero() {
                 href="https://wa.me/51999999999"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border border-mystic-gold/30 bg-black/25 backdrop-blur-xl hover:bg-mystic-gold hover:text-black text-mystic-gold px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2"
+                className="border border-mystic-gold/30 bg-black/30 backdrop-blur-xl hover:bg-mystic-gold hover:text-black text-mystic-gold px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-5 h-5" />
                 {t('heroBtnContact')}
@@ -194,7 +203,7 @@ export function Hero() {
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-4 items-center">
         {slides.map((_, index) => (
           <button key={index} onClick={() => setCurrent(index)} className="group">
-            <div className="w-16 h-[3px] bg-white/20 rounded-full overflow-hidden">
+            <div className="w-16 h-[3px] bg-white/30 rounded-full overflow-hidden shadow-md">
               <motion.div
                 className={`h-full ${current === index ? 'bg-mystic-gold' : 'bg-transparent'}`}
                 initial={{ width: 0 }}
