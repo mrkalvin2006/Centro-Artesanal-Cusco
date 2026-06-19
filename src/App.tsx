@@ -17,6 +17,7 @@ import { WelcomeGate } from './components/WelcomeGate';
 import { InstitutionalStats } from './components/InstitutionalStats';
 import { WhyVisitSection } from './components/WhyVisitSection';
 import { PremiumGallery } from './components/PremiumGallery';
+import { ExperienceSection } from './components/ExperienceSection';
 
 export default function App() {
   return (

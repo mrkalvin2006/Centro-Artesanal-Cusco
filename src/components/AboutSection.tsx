@@ -1,30 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Target, Eye, Heart, Sparkles, Users, Camera } from 'lucide-react';
-
-const featuredArtisans = [
-  {
-    name: 'Maestros del Telar',
-    craft: 'Arte Textil Ancestral',
-    image:
-      'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=600&auto=format&fit=crop',
-    desc: 'Preservando el tejido andino tradicional, utilizando tintes naturales y técnicas milenarias.',
-  },
-  {
-    name: 'Orfebres de los Andes',
-    craft: 'Platería y Joyería',
-    image:
-      'https://images.unsplash.com/photo-1509616788574-8d48bccaab08?q=80&w=600&auto=format&fit=crop',
-    desc: 'Diseños que fusionan la estética incaica con el arte virreinal en plata de la más alta pureza.',
-  },
-  {
-    name: 'Manos de Barro',
-    craft: 'Cerámica Andina',
-    image:
-      'https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=600&auto=format&fit=crop',
-    desc: 'Piezas utilitarias y decorativas que cuentan la cosmovisión andina a través del barro.',
-  },
-];
+import { useLanguage } from '../lib/LanguageContext';
 
 const artisanWorkImages = [
   'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?q=80&w=800&auto=format&fit=crop',
@@ -35,15 +12,8 @@ const artisanWorkImages = [
   'https://images.unsplash.com/photo-1501686637-b7cd9c56e017?q=80&w=800&auto=format&fit=crop',
 ];
 
-const values = [
-  'Autenticidad',
-  'Comercio Justo',
-  'Respeto Cultural',
-  'Excelencia',
-  'Sostenibilidad',
-];
-
 export function AboutSection() {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -53,12 +23,31 @@ export function AboutSection() {
 
   const yBg = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
 
+  const featuredArtisans = [
+    {
+      name: 'Maestros del Telar',
+      craft: t('artisan1Craft'),
+      image: 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=600&auto=format&fit=crop',
+      desc: t('artisan1Desc'),
+    },
+    {
+      name: 'Orfebres de los Andes',
+      craft: t('artisan2Craft'),
+      image: 'https://images.unsplash.com/photo-1509616788574-8d48bccaab08?q=80&w=600&auto=format&fit=crop',
+      desc: t('artisan2Desc'),
+    },
+    {
+      name: 'Manos de Barro',
+      craft: t('artisan3Craft'),
+      image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=600&auto=format&fit=crop',
+      desc: t('artisan3Desc'),
+    },
+  ];
+
+  const values = t('aboutValuesList').split(',');
+
   return (
-    <section
-      id="nosotros"
-      ref={containerRef}
-      className="py-24 relative overflow-hidden bg-mystic-dark"
-    >
+    <section id="nosotros" ref={containerRef} className="py-24 relative overflow-hidden bg-mystic-dark">
       <motion.div
         style={{ y: yBg }}
         className="absolute -right-20 top-20 w-96 h-96 bg-mystic-gold/10 rounded-full blur-3xl opacity-60"
@@ -78,53 +67,28 @@ export function AboutSection() {
             viewport={{ once: true, margin: '-100px' }}
           >
             <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               className="inline-flex items-center gap-2 px-4 py-2 bg-mystic-gold/10 border border-mystic-gold/20 rounded-full text-mystic-gold text-sm font-medium mb-6"
             >
               <Sparkles className="w-4 h-4" />
-              <span>Nuestra Historia</span>
+              <span>{t('aboutBadge')}</span>
             </motion.div>
 
             <motion.h2
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               className="font-serif text-4xl md:text-6xl text-mystic-light mb-7 leading-tight"
             >
-              Centro Artesanal
-              <span className="text-mystic-gold italic"> Cusco</span>
+              {t('aboutTitleTop')}
+              <span className="text-mystic-gold italic">{t('aboutTitleBottom')}</span>
             </motion.h2>
 
             <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               className="space-y-6 text-mystic-muted/80 leading-relaxed text-lg font-light"
             >
-              <p>
-                El Centro Artesanal Cusco es uno de los espacios culturales y
-                comerciales más importantes de la ciudad imperial. Reúne a
-                cientos de artesanos que mantienen vivas las técnicas
-                ancestrales heredadas de generación en generación.
-              </p>
-
-              <p>
-                Aquí convergen el arte textil, la cerámica, la joyería, la talla
-                en madera, los instrumentos musicales y diversas expresiones
-                culturales que representan la riqueza del patrimonio andino.
-              </p>
-
-              <p>
-                Nuestro objetivo es promover el talento local, fortalecer la
-                economía de las familias artesanas y ofrecer a visitantes
-                nacionales e internacionales una experiencia auténtica llena de
-                tradición, identidad y creatividad.
-              </p>
+              <p>{t('aboutP1')}</p>
+              <p>{t('aboutP2')}</p>
+              <p>{t('aboutP3')}</p>
             </motion.div>
           </motion.div>
 
@@ -139,65 +103,33 @@ export function AboutSection() {
             className="grid grid-cols-1 sm:grid-cols-2 gap-6"
           >
             <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.6 },
-                },
-              }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
               className="bg-gradient-to-br from-mystic-darker to-black p-8 rounded-3xl border border-mystic-gold/20 hover:border-mystic-gold/50 transition-all duration-500 group"
             >
               <Target className="w-11 h-11 text-mystic-gold mb-6 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
-              <h3 className="font-serif text-3xl text-mystic-light mb-4">
-                Misión
-              </h3>
+              <h3 className="font-serif text-3xl text-mystic-light mb-4">{t('aboutMissionTitle')}</h3>
               <p className="text-sm text-mystic-muted/80 leading-relaxed">
-                Promover, fortalecer y visibilizar el trabajo de los artesanos
-                cusqueños, ofreciendo un espacio digno para la difusión de su
-                arte y tradición.
+                {t('aboutMissionDesc')}
               </p>
             </motion.div>
 
             <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.6 },
-                },
-              }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
               className="bg-gradient-to-br from-mystic-darker to-black p-8 rounded-3xl border border-mystic-gold/20 hover:border-mystic-gold/50 transition-all duration-500 group"
             >
               <Eye className="w-11 h-11 text-mystic-gold mb-6 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
-              <h3 className="font-serif text-3xl text-mystic-light mb-4">
-                Visión
-              </h3>
+              <h3 className="font-serif text-3xl text-mystic-light mb-4">{t('aboutVisionTitle')}</h3>
               <p className="text-sm text-mystic-muted/80 leading-relaxed">
-                Ser un referente cultural y turístico del Cusco, reconocido por
-                preservar la identidad andina y conectar el arte local con el
-                mundo.
+                {t('aboutVisionDesc')}
               </p>
             </motion.div>
 
             <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.6 },
-                },
-              }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
               className="bg-gradient-to-br from-mystic-darker to-black p-8 rounded-3xl border border-mystic-gold/20 hover:border-mystic-gold/50 transition-all duration-500 group sm:col-span-2"
             >
               <Heart className="w-11 h-11 text-mystic-gold mb-6 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
-              <h3 className="font-serif text-3xl text-mystic-light mb-5">
-                Valores
-              </h3>
-
+              <h3 className="font-serif text-3xl text-mystic-light mb-5">{t('aboutValuesTitle')}</h3>
               <div className="flex flex-wrap gap-3">
                 {values.map((val) => (
                   <span
@@ -222,14 +154,11 @@ export function AboutSection() {
             >
               <div className="flex items-center gap-2 text-mystic-gold mb-4">
                 <Users className="w-5 h-5" />
-                <span className="text-sm font-medium uppercase tracking-widest">
-                  Nuestra Gente
-                </span>
+                <span className="text-sm font-medium uppercase tracking-widest">{t('aboutPeopleBadge')}</span>
               </div>
-
               <h3 className="font-serif text-3xl md:text-4xl text-mystic-light">
-                Manos que{' '}
-                <span className="italic text-mystic-gold">Crean Magia</span>
+                {t('aboutPeopleTitleTop')}
+                <span className="italic text-mystic-gold">{t('aboutPeopleTitleBottom')}</span>
               </h3>
             </motion.div>
 
@@ -240,9 +169,7 @@ export function AboutSection() {
               transition={{ delay: 0.2 }}
               className="text-mystic-muted/80 max-w-md font-light"
             >
-              Conoce el rostro detrás del arte. Detrás de cada pieza
-              extraordinaria existe una vida dedicada al perfeccionamiento de una
-              técnica milenaria.
+              {t('aboutPeopleDesc')}
             </motion.p>
           </div>
 
@@ -258,26 +185,12 @@ export function AboutSection() {
               >
                 <div className="w-full h-64 overflow-hidden relative">
                   <div className="absolute inset-0 bg-mystic-dark/40 group-hover:bg-transparent transition-colors duration-500 z-10" />
-
-                  <img
-                    src={artisan.image}
-                    alt={artisan.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0"
-                  />
+                  <img src={artisan.image} alt={artisan.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0" />
                 </div>
-
                 <div className="p-8 relative z-20 -mt-8 bg-gradient-to-t from-mystic-darker via-mystic-darker to-transparent pt-12">
-                  <div className="text-mystic-gold text-sm font-medium tracking-wide mb-2 uppercase">
-                    {artisan.craft}
-                  </div>
-
-                  <h4 className="font-serif text-2xl text-mystic-light mb-3">
-                    {artisan.name}
-                  </h4>
-
-                  <p className="text-mystic-muted/80 font-light leading-relaxed">
-                    {artisan.desc}
-                  </p>
+                  <div className="text-mystic-gold text-sm font-medium tracking-wide mb-2 uppercase">{artisan.craft}</div>
+                  <h4 className="font-serif text-2xl text-mystic-light mb-3">{artisan.name}</h4>
+                  <p className="text-mystic-muted/80 font-light leading-relaxed">{artisan.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -293,7 +206,7 @@ export function AboutSection() {
               className="inline-flex items-center gap-2 px-3 py-1 bg-mystic-gold/10 border border-mystic-gold/20 rounded-full text-mystic-gold text-sm font-medium mb-4"
             >
               <Camera className="w-4 h-4" />
-              <span>Detrás de la Magia</span>
+              <span>{t('aboutProcessBadge')}</span>
             </motion.div>
 
             <motion.h3
@@ -303,8 +216,8 @@ export function AboutSection() {
               transition={{ delay: 0.1 }}
               className="font-serif text-3xl md:text-4xl text-mystic-light"
             >
-              El Arte en{' '}
-              <span className="italic text-mystic-gold">Proceso</span>
+              {t('aboutProcessTitleTop')}
+              <span className="italic text-mystic-gold">{t('aboutProcessTitleBottom')}</span>
             </motion.h3>
           </div>
 
@@ -317,18 +230,9 @@ export function AboutSection() {
           >
             <div className="flex gap-6 overflow-x-auto pb-8 pt-4 px-4 sm:px-0 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {artisanWorkImages.map((img, idx) => (
-                <div
-                  key={idx}
-                  className="relative flex-none w-[85vw] sm:w-[45vw] md:w-[400px] h-[450px] snap-center rounded-2xl overflow-hidden group shadow-[0_0_20px_rgba(212,175,55,0.05)] border border-mystic-gold/10"
-                >
+                <div key={idx} className="relative flex-none w-[85vw] sm:w-[45vw] md:w-[400px] h-[450px] snap-center rounded-2xl overflow-hidden group shadow-[0_0_20px_rgba(212,175,55,0.05)] border border-mystic-gold/10">
                   <div className="absolute inset-0 bg-mystic-dark/40 group-hover:bg-mystic-dark/10 transition-colors duration-500 z-10" />
-
-                  <img
-                    src={img}
-                    alt={`Artesano trabajando ${idx + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-
+                  <img src={img} alt={`Artesano trabajando ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                   <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-mystic-gold/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
                   <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-mystic-gold/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
                 </div>

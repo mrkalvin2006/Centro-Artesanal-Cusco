@@ -1,112 +1,147 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Compass,
   MapPin,
   MessageCircle,
   Sparkles,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 
 export function Hero() {
   const { t } = useLanguage();
-  const containerRef = useRef<HTMLElement>(null);
+  const [current, setCurrent] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start'],
-  });
+  // Mover los slides adentro para poder usar la función t()
+  const slides = [
+    {
+      image: '/hero-cac.jpg',
+      badge: t('heroSlide1Badge'),
+      title: t('heroSlide1Title1'),
+      title2: t('heroSlide1Title2'),
+      title3: t('heroSlide1Title3'),
+      description: t('heroSlide1Desc'),
+    },
+    {
+      image: '/artesano.jpg',
+      badge: t('heroSlide2Badge'),
+      title: t('heroSlide2Title1'),
+      title2: t('heroSlide2Title2'),
+      title3: t('heroSlide2Title3'),
+      description: t('heroSlide2Desc'),
+    },
+    {
+      image: '/artesana.jpg',
+      badge: t('heroSlide3Badge'),
+      title: t('heroSlide3Title1'),
+      title2: t('heroSlide3Title2'),
+      title3: t('heroSlide3Title3'),
+      description: t('heroSlide3Desc'),
+    },
+  ];
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.2]);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 6000);
+
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  const nextSlide = () => {
+    setCurrent((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   return (
     <section
-      ref={containerRef}
       id="inicio"
       className="relative h-screen min-h-[800px] overflow-hidden bg-black"
     >
-      {/* FOTO PARALLAX */}
-      <motion.div
-        style={{
-          y,
-          scale,
-          opacity,
-          backgroundImage: 'url("/hero-cac.jpg")',
-          backgroundPosition: 'center 35%',
-        }}
-        className="absolute inset-0 z-0 h-[130%] -top-[15%] bg-cover bg-no-repeat"
-      />
+      {/* BACKGROUND */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0, scale: 1.18 }}
+          animate={{ opacity: 1, scale: 1.05 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 6, ease: 'linear' }}
+          className="absolute inset-0"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${slides[current].image})` }}
+          />
+        </motion.div>
+      </AnimatePresence>
 
       {/* OVERLAYS */}
-      <div className="absolute inset-0 bg-black/60 z-[1]" />
-
-      <div className="absolute inset-0 z-[2] bg-gradient-to-r from-black via-black/80 to-black/20" />
-
+      <div className="absolute inset-0 bg-black/55 z-[1]" />
+      <div className="absolute inset-0 z-[2] bg-gradient-to-r from-black via-black/70 to-black/20" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black via-transparent to-transparent" />
+      <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_75%_40%,rgba(212,175,55,0.20),transparent_45%)]" />
 
-      <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_75%_40%,rgba(212,175,55,0.18),transparent_45%)]" />
-
-      {/* CONTENIDO */}
-      <motion.div
-        style={{ y: textY }}
-        className="relative z-10 h-full flex items-center"
-      >
+      {/* CONTENT */}
+      <div className="relative z-10 h-full flex items-center">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full">
           <div className="max-w-3xl">
-            {/* BADGE */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-mystic-gold/30 bg-black/40 backdrop-blur-md text-mystic-gold text-sm mb-6">
+            <motion.div
+              key={`badge-${current}`}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-mystic-gold/30 bg-black/40 backdrop-blur-md text-mystic-gold text-sm mb-6"
+            >
               <Sparkles className="w-4 h-4" />
-              Arte • Tradición • Cultura Viva
-            </div>
+              {slides[current].badge}
+            </motion.div>
 
-            {/* STATS */}
             <div className="flex flex-wrap gap-3 mb-8">
               <span className="px-4 py-2 rounded-full bg-mystic-gold/10 border border-mystic-gold/25 text-mystic-gold text-sm">
-                24 Pasajes
+                {t('heroStat1')}
               </span>
-
               <span className="px-4 py-2 rounded-full bg-mystic-gold/10 border border-mystic-gold/25 text-mystic-gold text-sm">
-                +300 Artesanos
+                {t('heroStat2')}
               </span>
-
               <span className="px-4 py-2 rounded-full bg-mystic-gold/10 border border-mystic-gold/25 text-mystic-gold text-sm">
-                Cultura Viva del Cusco
+                {t('heroStat3')}
               </span>
             </div>
 
-            {/* TITULO */}
-            <h1
-              className="font-serif text-6xl md:text-8xl lg:text-[9rem] text-white leading-[0.9] mb-8"
-              style={{
-                textShadow:
-                  '0 10px 40px rgba(0,0,0,0.8)',
-              }}
-            >
-              Centro
-              <br />
-              Artesanal
-              <br />
-
-              <span
-                className="text-mystic-gold"
-                style={{
-                  textShadow:
-                    '0 0 50px rgba(212,175,55,0.45)',
-                }}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.8 }}
               >
-                Cusco
-              </span>
-            </h1>
+                <h1
+                  className="font-serif text-5xl md:text-8xl lg:text-[9rem] text-white leading-[0.9] mb-8"
+                  style={{ textShadow: '0 12px 60px rgba(0,0,0,0.95)' }}
+                >
+                  {slides[current].title}
+                  <br />
+                  {slides[current].title2}
+                  <br />
+                  <span
+                    className="text-mystic-gold"
+                    style={{ textShadow: '0 0 50px rgba(212,175,55,0.45)' }}
+                  >
+                    {slides[current].title3}
+                  </span>
+                </h1>
 
-            {/* DESCRIPCIÓN */}
-            <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mb-10">
-              Descubre artesanías, textiles, joyería, cerámica,
-              arte tradicional y recuerdos únicos elaborados por
-              maestros artesanos en el corazón de la ciudad imperial.
-            </p>
+                <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mb-10">
+                  {slides[current].description}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
             {/* BOTONES */}
             <div className="flex flex-col sm:flex-row gap-4">
@@ -115,47 +150,60 @@ export function Hero() {
                 className="bg-mystic-gold hover:bg-mystic-gold-light text-black px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-105"
               >
                 <Compass className="w-5 h-5" />
-                Explorar Pasajes
+                {t('heroBtnExplore')}
               </a>
 
               <a
                 href="#ubicacion"
-                className="border border-white/25 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur"
+                className="border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/15 text-white px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <MapPin className="w-5 h-5" />
-                Cómo Llegar
+                {t('heroBtnLocation')}
               </a>
 
               <a
                 href="https://wa.me/51999999999"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border border-mystic-gold/40 bg-black/40 hover:bg-mystic-gold hover:text-black text-mystic-gold px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur"
+                className="border border-mystic-gold/30 bg-black/25 backdrop-blur-xl hover:bg-mystic-gold hover:text-black text-mystic-gold px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-5 h-5" />
-                Contactar
+                {t('heroBtnContact')}
               </a>
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      {/* SCROLL INDICATOR */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center">
-        <span className="text-xs tracking-[0.35em] uppercase text-white/60 mb-2">
-          Scroll
-        </span>
+      {/* FLECHAS */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 text-white hover:bg-mystic-gold hover:text-black transition-all"
+      >
+        <ChevronLeft className="mx-auto" />
+      </button>
 
-        <motion.div
-          animate={{
-            y: [0, 12, 0],
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 2,
-          }}
-          className="h-14 w-[2px] bg-gradient-to-b from-mystic-gold to-transparent"
-        />
+      <button
+        onClick={nextSlide}
+        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 text-white hover:bg-mystic-gold hover:text-black transition-all"
+      >
+        <ChevronRight className="mx-auto" />
+      </button>
+
+      {/* INDICADORES PREMIUM */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-4 items-center">
+        {slides.map((_, index) => (
+          <button key={index} onClick={() => setCurrent(index)} className="group">
+            <div className="w-16 h-[3px] bg-white/20 rounded-full overflow-hidden">
+              <motion.div
+                className={`h-full ${current === index ? 'bg-mystic-gold' : 'bg-transparent'}`}
+                initial={{ width: 0 }}
+                animate={{ width: current === index ? '100%' : '0%' }}
+                transition={{ duration: 6, ease: 'linear' }}
+              />
+            </div>
+          </button>
+        ))}
       </div>
     </section>
   );
