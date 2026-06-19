@@ -1,106 +1,120 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import {
-  Store,
-  Users,
-  Shapes,
-  Landmark,
-} from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { Store, Users, Shapes, Landmark } from 'lucide-react';
+import { motion, useInView } from 'motion/react';
+import { useLanguage } from '../lib/LanguageContext';
 
-const stats = [
-  {
-    icon: Store,
-    value: '24',
-    label: 'Pasajes',
-    description: 'Espacios especializados',
-  },
-  {
-    icon: Users,
-    value: '+300',
-    label: 'Artesanos',
-    description: 'Maestros artesanos',
-  },
-  {
-    icon: Shapes,
-    value: '7',
-    label: 'Categorías',
-    description: 'Arte y tradición',
-  },
-  {
-    icon: Landmark,
-    value: '40+',
-    label: 'Años',
-    description: 'Historia cultural',
-  },
-];
+// Componente para animar los números
+function AnimatedCounter({ to, prefix = '', suffix = '' }: { to: number, prefix?: string, suffix?: string }) {
+  const nodeRef = useRef<HTMLSpanElement>(null);
+  const inView = useInView(nodeRef, { once: true, margin: "0px 0px -100px 0px" });
+
+  useEffect(() => {
+    if (!inView) return;
+    let startTimestamp: number;
+    const duration = 2000; // 2 segundos de animación
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      // Ease out cubic (para que desacelere al final)
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const currentCount = Math.floor(easeProgress * to);
+      
+      if (nodeRef.current) {
+        nodeRef.current.textContent = `${prefix}${currentCount}${suffix}`;
+      }
+      
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [inView, to, prefix, suffix]);
+
+  return <span ref={nodeRef} className="font-serif text-5xl md:text-6xl text-mystic-gold mb-4 inline-block tracking-tight drop-shadow-md">0</span>;
+}
 
 export function ExperienceSection() {
+  const { t } = useLanguage();
+
+  const stats = [
+    { icon: Store, number: 24, labelKey: 'expStat1', descKey: 'expDesc1', suffix: '' },
+    { icon: Users, number: 300, labelKey: 'expStat2', descKey: 'expDesc2', prefix: '+' },
+    { icon: Shapes, number: 7, labelKey: 'expStat3', descKey: 'expDesc3', suffix: '' },
+    { icon: Landmark, number: 40, labelKey: 'expStat4', descKey: 'expDesc4', suffix: '+' }
+  ];
+
   return (
-    <section className="relative py-24 bg-mystic-dark overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.10),transparent_50%)]" />
+    <section className="py-24 bg-black relative overflow-hidden border-t border-mystic-gold/10">
+      {/* Resplandor central dorado */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.08),transparent_70%)] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center px-4 py-2 rounded-full border border-mystic-gold/30 bg-mystic-gold/10 text-mystic-gold text-sm mb-5">
-            EXPERIENCIA CENTRO ARTESANAL
-          </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Cabecera de la Sección */}
+        <div className="text-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-block border border-mystic-gold/30 bg-mystic-gold/5 backdrop-blur-sm rounded-full px-5 py-2 mb-8 shadow-[0_0_15px_rgba(212,175,55,0.1)]"
+          >
+            <span className="text-mystic-gold text-xs font-medium tracking-[0.2em] uppercase">
+              {t('expBadge')}
+            </span>
+          </motion.div>
 
-          <h2 className="font-serif text-4xl md:text-6xl text-white mb-6">
-            Cultura, Tradición y
-            <span className="text-mystic-gold italic"> Arte Vivo</span>
-          </h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight"
+          >
+            {t('expTitle1')} <span className="text-mystic-gold italic font-light">{t('expTitle2')}</span>
+          </motion.h2>
 
-          <p className="max-w-3xl mx-auto text-mystic-light/80 text-lg">
-            Un espacio donde convergen generaciones de artesanos,
-            tradición andina y expresiones culturales únicas que
-            representan la identidad del Cusco.
-          </p>
-        </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-mystic-muted text-lg max-w-3xl mx-auto font-light leading-relaxed"
+          >
+            {t('expDesc')}
+          </motion.p>
+        </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((item, index) => {
-            const Icon = item.icon;
-
+        {/* Tarjetas de Estadísticas con Contadores */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((stat, index) => {
+            const Icon = stat.icon;
             return (
               <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 40 }}
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{
-                  delay: index * 0.15,
-                  duration: 0.6,
-                }}
-                whileHover={{
-                  y: -8,
-                }}
-                className="group bg-gradient-to-b from-mystic-darker to-black rounded-3xl border border-mystic-gold/15 hover:border-mystic-gold/50 p-8 text-center transition-all duration-500 shadow-xl"
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                className="group relative rounded-3xl bg-mystic-darker border border-white/5 p-10 text-center overflow-hidden hover:border-mystic-gold/30 transition-all duration-500 shadow-xl"
               >
-                <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-mystic-gold/10 border border-mystic-gold/20 flex items-center justify-center group-hover:scale-110 transition-all duration-500">
-                  <Icon className="w-8 h-8 text-mystic-gold" />
+                {/* Resplandor Hover */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-2xl bg-black/50 border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:border-mystic-gold/50 transition-all duration-500 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                    <Icon className="w-8 h-8 text-mystic-gold/80 group-hover:text-mystic-gold transition-colors" />
+                  </div>
+                  
+                  <AnimatedCounter to={stat.number} prefix={stat.prefix} suffix={stat.suffix} />
+                  
+                  <h3 className="text-xl text-white font-semibold mb-2">{t(stat.labelKey as any)}</h3>
+                  <p className="text-sm text-mystic-muted/60">{t(stat.descKey as any)}</p>
                 </div>
-
-                <div className="text-4xl md:text-5xl font-bold text-mystic-gold mb-2">
-                  {item.value}
-                </div>
-
-                <h3 className="text-white font-semibold text-xl mb-2">
-                  {item.label}
-                </h3>
-
-                <p className="text-mystic-light/60 text-sm">
-                  {item.description}
-                </p>
               </motion.div>
             );
           })}
         </div>
+
       </div>
     </section>
   );
