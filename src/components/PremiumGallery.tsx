@@ -1,6 +1,8 @@
 import React from 'react';
 import { Camera } from 'lucide-react';
 import { motion } from 'motion/react';
+// IMPORTAMOS EL TRADUCTOR
+import { useLanguage } from '../lib/LanguageContext';
 
 // 1. Lista de los 15 Rubros
 const rubrosList = [
@@ -34,8 +36,12 @@ const row1 = galleryItems.slice(0, 22);
 const row2 = galleryItems.slice(22, 45);
 
 export function PremiumGallery() {
+  // INICIALIZAMOS EL TRADUCTOR
+  const { t } = useLanguage();
+
   return (
-    <section className="py-32 bg-black relative overflow-hidden border-t border-mystic-gold/10">
+    // ASIGNAMOS EL ID "galeria" AQUÍ
+    <section id="galeria" className="py-32 bg-black relative overflow-hidden border-t border-mystic-gold/10">
       
       {/* Estilos para la animación infinita */}
       <style>{`
@@ -63,7 +69,7 @@ export function PremiumGallery() {
         }
       `}</style>
 
-      {/* CABECERA (Similar a tu captura de pantalla) */}
+      {/* CABECERA */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,7 +78,8 @@ export function PremiumGallery() {
           className="inline-flex items-center gap-2 text-mystic-gold text-sm font-medium tracking-widest uppercase mb-4"
         >
           <Camera className="w-4 h-4" />
-          <span>Galería</span>
+          {/* TEXTO TRADUCIDO */}
+          <span>{t('galleryBadge')}</span>
         </motion.div>
         
         <motion.h2 
@@ -82,7 +89,8 @@ export function PremiumGallery() {
           transition={{ delay: 0.1 }}
           className="font-serif text-5xl md:text-6xl text-mystic-light mb-6 tracking-wide"
         >
-          GALERÍA <span className="italic text-mystic-gold font-light">PREMIUM</span>
+          {/* TEXTOS TRADUCIDOS */}
+          {t('galleryTitleTop')} <span className="italic text-mystic-gold font-light">{t('galleryTitleBottom')}</span>
         </motion.h2>
         
         <motion.p 
@@ -92,7 +100,8 @@ export function PremiumGallery() {
           transition={{ delay: 0.2 }}
           className="text-mystic-muted/80 max-w-3xl mx-auto font-light"
         >
-          Próximamente compartiremos fotografías reales de nuestros pasajes, stands, artesanías y visitantes. Por ahora, explora nuestros rubros artísticos.
+          {/* TEXTO TRADUCIDO */}
+          {t('galleryDesc')}
         </motion.p>
       </div>
 

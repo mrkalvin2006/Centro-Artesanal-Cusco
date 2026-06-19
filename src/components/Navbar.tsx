@@ -10,20 +10,21 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../lib/LanguageContext';
 
+// 1. Añadimos las banderas (flags) para que el selector se vea visualmente atractivo
 const languages = [
-  { code: 'ES', label: 'Español' },
-  { code: 'EN', label: 'English' },
-  { code: 'PT', label: 'Português' },
-  { code: 'FR', label: 'Français' },
-  { code: 'ZH', label: '中文' } // Chino Mandarín
+  { code: 'ES', label: 'Español', flag: '🇵🇪' },
+  { code: 'EN', label: 'English', flag: '🇺🇸' },
+  { code: 'PT', label: 'Português', flag: '🇧🇷' },
+  { code: 'FR', label: 'Français', flag: '🇫🇷' },
+  { code: 'ZH', label: '中文', flag: '🇨🇳' } 
 ];
 
+// 2. Corregimos las rutas (href) y quitamos "Pasajes"
 const navLinks = [
   { href: '#inicio', key: 'navInicio' },
   { href: '#nosotros', key: 'navHistoria' },
-  { href: '#categorias', key: 'navCategorias' },
-  { href: '#pasajes', key: 'navPasajes' },
-  { href: '#galeria', key: 'Galería' },
+  { href: '#directorio', key: 'navCategorias' }, // Apunta al nuevo Directorio
+  { href: '#galeria', key: 'navGaleria' },       // Apunta a la Galería Premium
   { href: '#ubicacion', key: 'navUbicacion' },
 ];
 
@@ -46,11 +47,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const getLabel = (key: string) => {
-    if (key === 'Galería') return 'Galería';
-    return t(key as any);
-  };
-
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -68,6 +64,7 @@ export function Navbar() {
             scrolled ? 'h-16' : 'h-20'
           }`}
         >
+          {/* LOGO Y TÍTULO */}
           <a
             href="#inicio"
             className="flex items-center gap-3"
@@ -99,6 +96,7 @@ export function Navbar() {
             </div>
           </a>
 
+          {/* ENLACES DE ESCRITORIO */}
           <div className="hidden lg:flex items-center gap-7">
             {navLinks.map((item) => (
               <a
@@ -106,12 +104,16 @@ export function Navbar() {
                 href={item.href}
                 className="text-sm font-medium text-white/90 hover:text-mystic-gold transition-colors"
               >
-                {getLabel(item.key)}
+                {/* Ahora usa el traductor directamente */}
+                {t(item.key as any)}
               </a>
             ))}
           </div>
 
+          {/* BOTONES DERECHOS (ESCRITORIO) */}
           <div className="hidden lg:flex items-center gap-4">
+            
+            {/* SELECTOR DE IDIOMAS */}
             <div className="relative">
               <button
                 type="button"
@@ -147,7 +149,7 @@ export function Navbar() {
                         }`}
                       >
                         <span className="flex items-center gap-2">
-                          <span>{l.flag}</span>
+                          <span className="text-lg">{l.flag}</span>
                           {l.label}
                         </span>
                         <span>{l.code}</span>
@@ -177,6 +179,7 @@ export function Navbar() {
             </a>
           </div>
 
+          {/* BOTÓN HAMBURGUESA (MÓVIL) */}
           <button
             type="button"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
@@ -191,6 +194,7 @@ export function Navbar() {
         </div>
       </div>
 
+      {/* MENÚ MÓVIL DESPLEGABLE */}
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
@@ -207,11 +211,12 @@ export function Navbar() {
                   onClick={closeMobile}
                   className="block rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-mystic-light hover:border-mystic-gold/40 hover:text-mystic-gold"
                 >
-                  {getLabel(item.key)}
+                  {/* Traducción dinámica */}
+                  {t(item.key as any)}
                 </a>
               ))}
 
-              <div className="grid grid-cols-3 gap-2 pt-3">
+              <div className="grid grid-cols-5 gap-2 pt-3">
                 {languages.map((l) => (
                   <button
                     key={l.code}
@@ -220,37 +225,39 @@ export function Navbar() {
                       setLang(l.code as any);
                       setIsMobileOpen(false);
                     }}
-                    className={`rounded-xl border px-3 py-3 text-sm ${
+                    className={`rounded-xl border flex flex-col items-center justify-center py-3 text-sm ${
                       lang === l.code
                         ? 'border-mystic-gold bg-mystic-gold/15 text-mystic-gold'
                         : 'border-white/10 bg-white/5 text-mystic-light'
                     }`}
                   >
-                    <div>{l.flag}</div>
-                    <div>{l.code}</div>
+                    <div className="text-lg mb-1">{l.flag}</div>
+                    <div className="text-xs">{l.code}</div>
                   </button>
                 ))}
               </div>
 
-              <a
-                href="#ubicacion"
-                onClick={closeMobile}
-                className="flex items-center justify-center gap-2 rounded-xl bg-mystic-gold px-5 py-4 font-bold text-black"
-              >
-                <Map className="w-5 h-5" />
-                {t('navVisitanos' as any)}
-              </a>
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                <a
+                  href="#ubicacion"
+                  onClick={closeMobile}
+                  className="flex items-center justify-center gap-2 rounded-xl bg-mystic-gold px-4 py-4 font-bold text-black"
+                >
+                  <Map className="w-4 h-4" />
+                  {t('navVisitanos' as any)}
+                </a>
 
-              <a
-                href="https://wa.me/51999999999"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={closeMobile}
-                className="flex items-center justify-center gap-2 rounded-xl border border-mystic-gold/40 px-5 py-4 font-bold text-mystic-gold"
-              >
-                <MessageCircle className="w-5 h-5" />
-                WhatsApp
-              </a>
+                <a
+                  href="https://wa.me/51999999999"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMobile}
+                  className="flex items-center justify-center gap-2 rounded-xl border border-mystic-gold/40 px-4 py-4 font-bold text-mystic-gold"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  WhatsApp
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

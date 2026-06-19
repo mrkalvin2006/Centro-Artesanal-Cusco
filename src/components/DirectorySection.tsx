@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Search, Filter, MessageCircle, MapPin, Store } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 
-// 1. MOCK DATA: Datos falsos temporales para probar los filtros
+// MOCK DATA: Datos falsos temporales para probar los filtros
 const mockStands = [
   { id: 1, name: 'Inca Wasi', artisan: 'María Quispe', rubro: 'Textiles', pasaje: 'Pasaje Inca', image: 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=400', standNumber: 'A-15' },
   { id: 2, name: 'Manos de Oro', artisan: 'Juan Pérez', rubro: 'Platería', pasaje: 'Pasaje Sol', image: 'https://images.unsplash.com/photo-1509616788574-8d48bccaab08?q=80&w=400', standNumber: 'B-22' },
@@ -13,6 +13,7 @@ const mockStands = [
   { id: 6, name: 'Pieles Cusco', artisan: 'Carlos Yupanqui', rubro: 'Peletería', pasaje: 'Pasaje Cóndor', image: 'https://images.unsplash.com/photo-1531604250646-2f0e818c4f06?q=80&w=400', standNumber: 'C-12' },
 ];
 
+// Opciones de filtros estáticos (luego vendrán de la base de datos)
 const rubros = ['Todos', 'Textiles', 'Bisutería', 'Cerámica', 'Tallados', 'Pinturas', 'Platería', 'Peletería', 'Otros'];
 const pasajes = ['Todos', 'Pasaje Inca', 'Pasaje Sol', 'Pasaje Cóndor'];
 
@@ -32,42 +33,42 @@ export function DirectorySection() {
   });
 
   return (
-    <section id="directorio" className="py-24 bg-mystic-darker relative">
+    <section id="directorio" className="py-24 bg-mystic-darker relative border-t border-mystic-gold/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Título de la sección */}
+        {/* TÍTULO DE LA SECCIÓN */}
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl text-mystic-light mb-4">
-            Directorio de <span className="italic text-mystic-gold">Artesanos</span>
+            {t('dirTitleTop')} <span className="italic text-mystic-gold">{t('dirTitleBottom')}</span>
           </h2>
           <p className="text-mystic-muted max-w-2xl mx-auto">
-            Explora nuestros más de 300 stands. Filtra por rubro artesanal o navega por nuestros pasajes.
+            {t('dirDesc')}
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           
-          {/* COLUMNA IZQUIERDA: FILTROS (Sidebar) */}
+          {/* COLUMNA IZQUIERDA: FILTROS */}
           <div className="w-full lg:w-1/4 space-y-8">
             
             {/* Buscador */}
-            <div className="bg-mystic-dark p-6 rounded-2xl border border-mystic-gold/20">
+            <div className="bg-mystic-dark p-6 rounded-2xl border border-mystic-gold/20 shadow-lg">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-mystic-gold/50" />
                 <input
                   type="text"
-                  placeholder="Buscar stand o artesano..."
+                  placeholder={t('dirSearch')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-black/50 border border-mystic-gold/30 rounded-lg py-3 pl-10 pr-4 text-white focus:outline-none focus:border-mystic-gold transition-colors"
+                  className="w-full bg-black/50 border border-mystic-gold/30 rounded-lg py-3 pl-10 pr-4 text-white placeholder-white/40 focus:outline-none focus:border-mystic-gold transition-colors"
                 />
               </div>
             </div>
 
             {/* Filtro: Rubros */}
-            <div className="bg-mystic-dark p-6 rounded-2xl border border-mystic-gold/20">
+            <div className="bg-mystic-dark p-6 rounded-2xl border border-mystic-gold/20 shadow-lg">
               <h3 className="text-mystic-gold font-serif text-xl mb-4 flex items-center gap-2">
-                <Filter className="w-5 h-5" /> Rubros
+                <Filter className="w-5 h-5" /> {t('dirRubros')}
               </h3>
               <div className="flex flex-col gap-2">
                 {rubros.map((rubro) => (
@@ -76,7 +77,7 @@ export function DirectorySection() {
                     onClick={() => setActiveRubro(rubro)}
                     className={`text-left px-4 py-2 rounded-lg transition-all ${
                       activeRubro === rubro 
-                        ? 'bg-mystic-gold text-black font-bold' 
+                        ? 'bg-mystic-gold text-black font-bold shadow-md' 
                         : 'text-mystic-light hover:bg-mystic-gold/10 hover:text-mystic-gold'
                     }`}
                   >
@@ -87,9 +88,9 @@ export function DirectorySection() {
             </div>
 
             {/* Filtro: Pasajes */}
-            <div className="bg-mystic-dark p-6 rounded-2xl border border-mystic-gold/20">
+            <div className="bg-mystic-dark p-6 rounded-2xl border border-mystic-gold/20 shadow-lg">
               <h3 className="text-mystic-gold font-serif text-xl mb-4 flex items-center gap-2">
-                <MapPin className="w-5 h-5" /> Pasajes
+                <MapPin className="w-5 h-5" /> {t('dirPasajes')}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {pasajes.map((pasaje) => (
@@ -98,8 +99,8 @@ export function DirectorySection() {
                     onClick={() => setActivePasaje(pasaje)}
                     className={`px-4 py-2 text-sm rounded-full transition-all border ${
                       activePasaje === pasaje 
-                        ? 'border-mystic-gold bg-mystic-gold/20 text-mystic-gold' 
-                        : 'border-white/10 text-mystic-muted hover:border-mystic-gold/50'
+                        ? 'border-mystic-gold bg-mystic-gold/20 text-mystic-gold shadow-md' 
+                        : 'border-white/10 text-mystic-muted hover:border-mystic-gold/50 hover:text-white'
                     }`}
                   >
                     {pasaje}
@@ -109,7 +110,7 @@ export function DirectorySection() {
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: RESULTADOS (Grid de Cards) */}
+          {/* COLUMNA DERECHA: RESULTADOS (Cards) */}
           <div className="w-full lg:w-3/4">
             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               <AnimatePresence>
@@ -121,7 +122,7 @@ export function DirectorySection() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.3 }}
-                    className="bg-mystic-dark border border-mystic-gold/20 rounded-2xl overflow-hidden hover:border-mystic-gold/50 transition-all group"
+                    className="bg-mystic-dark border border-mystic-gold/20 rounded-2xl overflow-hidden hover:border-mystic-gold/50 transition-all group shadow-xl hover:shadow-mystic-gold/10"
                   >
                     {/* Imagen del Stand */}
                     <div className="h-48 overflow-hidden relative">
@@ -131,7 +132,7 @@ export function DirectorySection() {
                       <img 
                         src={stand.image} 
                         alt={stand.name} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                       />
                     </div>
 
@@ -139,8 +140,8 @@ export function DirectorySection() {
                     <div className="p-5">
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-serif text-xl text-mystic-light">{stand.name}</h4>
-                        <span className="flex items-center gap-1 text-sm text-mystic-muted bg-white/5 px-2 py-1 rounded">
-                          <Store className="w-3 h-3" /> {stand.standNumber}
+                        <span className="flex items-center gap-1 text-sm text-mystic-muted bg-white/5 px-2 py-1 rounded border border-white/10">
+                          <Store className="w-3 h-3 text-mystic-gold" /> {stand.standNumber}
                         </span>
                       </div>
                       <p className="text-sm text-mystic-muted/80 mb-4">{stand.artisan}</p>
@@ -149,9 +150,16 @@ export function DirectorySection() {
                         <span className="text-xs text-mystic-gold flex items-center gap-1">
                           <MapPin className="w-3 h-3" /> {stand.pasaje}
                         </span>
-                        <button className="flex items-center gap-2 bg-green-600/20 hover:bg-green-600 text-green-500 hover:text-white px-3 py-1.5 rounded-lg text-sm transition-all border border-green-600/30">
-                          <MessageCircle className="w-4 h-4" /> Contactar
-                        </button>
+                        
+                        {/* Botón de WhatsApp simulado */}
+                        <a 
+                          href="https://wa.me/51999999999" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 bg-green-600/20 hover:bg-green-600 text-green-500 hover:text-white px-3 py-1.5 rounded-lg text-sm transition-all border border-green-600/30"
+                        >
+                          <MessageCircle className="w-4 h-4" /> {t('dirBtnContact')}
+                        </a>
                       </div>
                     </div>
                   </motion.div>
@@ -159,13 +167,17 @@ export function DirectorySection() {
               </AnimatePresence>
             </motion.div>
 
-            {/* Mensaje si no hay resultados */}
+            {/* ESTADO VACÍO (Si la búsqueda no arroja resultados) */}
             {filteredStands.length === 0 && (
-              <div className="w-full py-20 text-center border border-dashed border-white/20 rounded-2xl">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="w-full py-20 text-center border border-dashed border-white/20 rounded-2xl bg-white/5"
+              >
                 <Search className="w-12 h-12 text-mystic-muted mx-auto mb-4 opacity-50" />
-                <h3 className="text-xl text-mystic-light mb-2">No encontramos ningún stand</h3>
-                <p className="text-mystic-muted">Intenta cambiar los filtros o tu término de búsqueda.</p>
-              </div>
+                <h3 className="text-xl text-mystic-light mb-2">{t('dirNotFoundTitle')}</h3>
+                <p className="text-mystic-muted">{t('dirNotFoundDesc')}</p>
+              </motion.div>
             )}
           </div>
 
