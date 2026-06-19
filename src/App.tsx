@@ -1,40 +1,34 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React from 'react';
+import { LanguageProvider } from './lib/LanguageContext';
+import { WelcomeGate } from './components/WelcomeGate';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
-import { PasajesSection } from './components/PasajesSection';
-import { CategoriesGallery } from './components/CategoriesGallery';
-import { Footer } from './components/Footer';
-import { LanguageProvider } from './lib/LanguageContext';
-import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { VisitUsSection } from './components/VisitUsSection';
-import { WelcomeGate } from './components/WelcomeGate';
-import { InstitutionalStats } from './components/InstitutionalStats';
-import { WhyVisitSection } from './components/WhyVisitSection';
-import { PremiumGallery } from './components/PremiumGallery';
+import { DirectorySection } from './components/DirectorySection'; // El nuevo directorio fusionado
 import { ExperienceSection } from './components/ExperienceSection';
+import { PremiumGallery } from './components/PremiumGallery';
+import { VisitUsSection } from './components/VisitUsSection';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { Footer } from './components/Footer';
 
-export default function App() {
+function App() {
   return (
     <LanguageProvider>
-      <div className="font-sans text-mystic-light bg-mystic-dark selection:bg-mystic-gold selection:text-white">
-
-        <WelcomeGate />
-
+      {/* Pantalla de entrada premium */}
+      <WelcomeGate />
+      
+      {/* Interfaz principal */}
+      <div className="bg-mystic-darker min-h-screen text-white antialiased selection:bg-mystic-gold/30 selection:text-mystic-gold">
         <Navbar />
-
+        <Hero />
+        
         <main>
-          <Hero />
-          <InstitutionalStats />
           <AboutSection />
-          <WhyVisitSection />
-          <CategoriesGallery />
-          <PasajesSection />
+          
+          {/* Aquí se fusionan Categorías y Pasajes en una sola experiencia interactiva */}
+          <DirectorySection />
+          
+          <ExperienceSection />
           <PremiumGallery />
           <VisitUsSection />
         </main>
@@ -45,3 +39,5 @@ export default function App() {
     </LanguageProvider>
   );
 }
+
+export default App;
