@@ -17,7 +17,7 @@ const translations = {
     aboutValuesTitle: 'Valores', aboutValuesList: 'Autenticidad,Comercio Justo,Respeto Cultural,Excelencia,Sostenibilidad',
     galleryBadge: 'Galería', galleryTitleTop: 'GALERÍA', galleryTitleBottom: ' PREMIUM', galleryDesc: 'Próximamente compartiremos fotografías reales de nuestros pasajes, stands, artesanías y visitantes. Por ahora, explora nuestros rubros artísticos.',
     dirTitleTop: 'Directorio de', dirTitleBottom: ' Artesanos', dirDesc: 'Explora nuestros más de 300 stands. Filtra por rubro artesanal o navega por nuestros pasajes.', dirSearch: 'Buscar stand o artesano...', dirRubros: 'Rubros', dirPasajes: 'Pasajes', dirBtnContact: 'Contactar', dirNotFoundTitle: 'No encontramos ningún stand', dirNotFoundDesc: 'Intenta cambiar los filtros o tu término de búsqueda.',
-    expBadge: 'EXPERIENCIA CENTRO ARTESANAL', expTitle1: 'CULTURA, TRADICIÓN Y ', expTitle2: 'ARTE VIVO', expDesc: 'Un espacio donde convergen generaciones de artesanos, tradición andina y expresiones culturales únicas que representan la identidad del Cusco.', expStat1: 'Pasajes', expDesc1: 'Espacios especializados', expStat2: 'Artesanos', expDesc2: 'Maestros artesanos', expStat3: 'Categorías', expDesc3: 'Arte y tradición', expStat4: 'Años', expDesc4: 'Historia cultural'
+    expBadge: 'EXPERIENCIA CENTRO ARTESANAL', expTitle1: 'CULTURA, TRADICIÓN Y ', expTitle2: 'ARTE VIVO', expDesc: 'Un espacio donde convergen generaciones de artesanos, tradición andina y expresiones culturales únicas que representan la identidad del Cusco.', expStat1: 'Pasajes', expDesc1: 'Espacios especializados', expStat2: 'Artesanos', expDesc2: 'Maestros artesanos', expStat3: 'Categorías', expDesc3: 'Arte y tradición', expStat4: 'Años', expDesc4: 'Historia cultural', expStat5: 'Visitantes', expDesc5: 'Al año'
   },
   EN: {
     welcomeTitle: 'Welcome', welcomeSubtitle: 'Select your language to continue', welcomeEnter: 'ENTER',
@@ -35,7 +35,7 @@ const translations = {
     aboutValuesTitle: 'Values', aboutValuesList: 'Authenticity,Fair Trade,Cultural Respect,Excellence,Sustainability',
     galleryBadge: 'Gallery', galleryTitleTop: 'PREMIUM', galleryTitleBottom: ' GALLERY', galleryDesc: 'We will soon share real photographs of our passages, stands, crafts, and visitors. For now, explore our artistic categories.',
     dirTitleTop: 'Artisan', dirTitleBottom: ' Directory', dirDesc: 'Explore our more than 300 stands. Filter by craft category or browse our passages.', dirSearch: 'Search stand or artisan...', dirRubros: 'Categories', dirPasajes: 'Passages', dirBtnContact: 'Contact', dirNotFoundTitle: 'No stands found', dirNotFoundDesc: 'Try changing the filters or your search term.',
-    expBadge: 'ARTISANAL CENTER EXPERIENCE', expTitle1: 'CULTURE, TRADITION AND ', expTitle2: 'LIVING ART', expDesc: 'A space where generations of artisans, Andean tradition, and unique cultural expressions that represent the identity of Cusco converge.', expStat1: 'Passages', expDesc1: 'Specialized spaces', expStat2: 'Artisans', expDesc2: 'Master artisans', expStat3: 'Categories', expDesc3: 'Art and tradition', expStat4: 'Years', expDesc4: 'Cultural history'
+    expBadge: 'ARTISANAL CENTER EXPERIENCE', expTitle1: 'CULTURE, TRADITION AND ', expTitle2: 'LIVING ART', expDesc: 'A space where generations of artisans, Andean tradition, and unique cultural expressions that represent the identity of Cusco converge.', expStat1: 'Passages', expDesc1: 'Specialized spaces', expStat2: 'Artisans', expDesc2: 'Master artisans', expStat3: 'Categories', expDesc3: 'Art and tradition', expStat4: 'Years', expDesc4: 'Cultural history', expStat5: 'Visitors', expDesc5: 'Per year'
   },
   PT: {
     welcomeTitle: 'Bem-vindo', welcomeSubtitle: 'Selecione seu idioma para continuar', welcomeEnter: 'ENTRAR',
@@ -53,7 +53,7 @@ const translations = {
     aboutValuesTitle: 'Valores', aboutValuesList: 'Autenticidade,Comércio Justo,Respeito Cultural,Excelência,Sustentabilidade',
     galleryBadge: 'Galeria', galleryTitleTop: 'GALERIA', galleryTitleBottom: ' PREMIUM', galleryDesc: 'Em breve compartilharemos fotos reais de nossos corredores, estandes, artesanatos e visitantes. Por enquanto, explore nossas categorias artísticas.',
     dirTitleTop: 'Diretório de', dirTitleBottom: ' Artesãos', dirDesc: 'Explore nossos mais de 300 estandes. Filtre por categoria de artesanato ou navegue por nossos corredores.', dirSearch: 'Buscar estande ou artesão...', dirRubros: 'Categorias', dirPasajes: 'Corredores', dirBtnContact: 'Contato', dirNotFoundTitle: 'Nenhum estande encontrado', dirNotFoundDesc: 'Tente mudar os filtros ou seu termo de busca.',
-    expBadge: 'EXPERIÊNCIA CENTRO ARTESANAL', expTitle1: 'CULTURA, TRADIÇÃO E ', expTitle2: 'ARTE VIVA', expDesc: 'Um espaço onde convergem gerações de artesãos, tradição andina e expressões culturais únicas que representam a identidade de Cusco.', expStat1: 'Corredores', expDesc1: 'Espaços especializados', expStat2: 'Artesãos', expDesc2: 'Mestres artesãos', expStat3: 'Categorias', expDesc3: 'Arte e tradição', expStat4: 'Anos', expDesc4: 'História cultural'
+    expBadge: 'EXPERIÊNCIA CENTRO ARTESANAL', expTitle1: 'CULTURA, TRADIÇÃO E ', expTitle2: 'ARTE VIVA', expDesc: 'Um espaço onde convergem gerações de artesãos, tradição andina e expressões culturais únicas que representam a identidade de Cusco.', expStat1: 'Corredores', expDesc1: 'Espaços especializados', expStat2: 'Artesãos', expDesc2: 'Mestres artesãos', expStat3: 'Categorias', expDesc3: 'Arte e tradição', expStat4: 'Anos', expDesc4: 'História cultural', expStat5: 'Visitantes', expDesc5: 'Por ano'
   },
   FR: {
     welcomeTitle: 'Bienvenue', welcomeSubtitle: 'Sélectionnez votre langue pour continuer', welcomeEnter: 'ENTRER',
@@ -71,7 +71,7 @@ const translations = {
     aboutValuesTitle: 'Valeurs', aboutValuesList: 'Authenticité,Commerce Équitable,Respect Culturel,Excellence,Durabilité',
     galleryBadge: 'Galerie', galleryTitleTop: 'GALERIE', galleryTitleBottom: ' PREMIUM', galleryDesc: 'Nous partagerons bientôt de vraies photos de nos passages, stands, artisanats et visiteurs. Pour l\'instant, explorez nos catégories artistiques.',
     dirTitleTop: 'Annuaire des', dirTitleBottom: ' Artisans', dirDesc: 'Explorez nos plus de 300 stands. Filtrez par catégorie d\'artisanat ou parcourez nos passages.', dirSearch: 'Rechercher un stand ou un artisan...', dirRubros: 'Catégories', dirPasajes: 'Passages', dirBtnContact: 'Contact', dirNotFoundTitle: 'Aucun stand trouvé', dirNotFoundDesc: 'Essayez de modifier les filtres ou votre terme de recherche.',
-    expBadge: 'EXPÉRIENCE CENTRE ARTISANAL', expTitle1: 'CULTURE, TRADITION ET ', expTitle2: 'ART VIVANT', expDesc: 'Un espace où convergent des générations d\'artisans, la tradition andine et des expressions culturelles uniques qui représentent l\'identité de Cusco.', expStat1: 'Passages', expDesc1: 'Espaces spécialisés', expStat2: 'Artisans', expDesc2: 'Maîtres artisans', expStat3: 'Catégories', expDesc3: 'Art et tradition', expStat4: 'Années', expDesc4: 'Histoire culturelle'
+    expBadge: 'EXPÉRIENCE CENTRE ARTISANAL', expTitle1: 'CULTURE, TRADITION ET ', expTitle2: 'ART VIVANT', expDesc: 'Un espace où convergent des générations d\'artisans, la tradition andine et des expressions culturelles uniques qui représentent l\'identité de Cusco.', expStat1: 'Passages', expDesc1: 'Espaces spécialisés', expStat2: 'Artisans', expDesc2: 'Maîtres artisans', expStat3: 'Catégories', expDesc3: 'Art et tradition', expStat4: 'Années', expDesc4: 'Histoire culturelle', expStat5: 'Visiteurs', expDesc5: 'Par an'
   },
   ZH: {
     welcomeTitle: '欢迎', welcomeSubtitle: '请选择您的语言以继续', welcomeEnter: '进入',
@@ -89,7 +89,7 @@ const translations = {
     aboutValuesTitle: '价值观', aboutValuesList: '真实性,公平贸易,文化尊重,卓越,可持续性',
     galleryBadge: '画廊', galleryTitleTop: '高级', galleryTitleBottom: ' 画廊', galleryDesc: '我们很快将分享我们的通道、摊位、手工艺品和游客的真实照片。现在，请探索我们的艺术类别。',
     dirTitleTop: '工匠', dirTitleBottom: ' 目录', dirDesc: '探索我们300多个摊位。按手工艺类别过滤或浏览我们的通道。', dirSearch: '搜索摊位或工匠...', dirRubros: '类别', dirPasajes: '通道', dirBtnContact: '联系', dirNotFoundTitle: '未找到摊位', dirNotFoundDesc: '请尝试更改过滤器或搜索词。',
-    expBadge: '手工艺中心体验', expTitle1: '文化、传统与', expTitle2: '生活艺术', expDesc: '这里汇聚了世代相传的工匠、安第斯传统和代表库斯科身份的独特文化表现形式。', expStat1: '通道', expDesc1: '专业空间', expStat2: '工匠', expDesc2: '手工艺大师', expStat3: '类别', expDesc3: '艺术与传统', expStat4: '年', expDesc4: '文化历史'
+    expBadge: '手工艺中心体验', expTitle1: '文化、传统与', expTitle2: '生活艺术', expDesc: '这里汇聚了世代相传的工匠、安第斯传统和代表库斯科身份的独特文化表现形式。', expStat1: '通道', expDesc1: '专业空间', expStat2: '工匠', expDesc2: '手工艺大师', expStat3: '类别', expDesc3: '艺术与传统', expStat4: '年', expDesc4: '文化历史', expStat5: '游客', expDesc5: '每年'
   },
 };
 
