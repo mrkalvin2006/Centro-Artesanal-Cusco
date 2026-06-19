@@ -11,9 +11,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../lib/LanguageContext';
 
 const languages = [
-  { code: 'ES', label: 'Español', flag: '🇵🇪' },
-  { code: 'EN', label: 'English', flag: '🇺🇸' },
-  { code: 'PT', label: 'Português', flag: '🇧🇷' },
+  { code: 'ES', label: 'Español' },
+  { code: 'EN', label: 'English' },
+  { code: 'PT', label: 'Português' },
+  { code: 'FR', label: 'Français' },
+  { code: 'ZH', label: '中文' } // Chino Mandarín
 ];
 
 const navLinks = [

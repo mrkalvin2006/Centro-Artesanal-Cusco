@@ -54,6 +54,42 @@ const translations = {
     heroBtnLocation: 'Como Chegar',
     heroBtnContact: 'Contato',
   },
+
+  FR: {
+    navInicio: 'Accueil',
+    navHistoria: 'Notre Histoire',
+    navCategorias: 'Catégories',
+    navPasajes: 'Passages',
+    navUbicacion: 'Emplacement',
+    navVisitanos: 'Visitez-nous',
+
+    heroBadge: 'Art, tradition et culture vivante',
+    heroTitleTop: 'Centre Artisanal',
+    heroTitleBottom: 'Cusco',
+    heroSubtitle:
+      'Découvrez de l\'artisanat, des textiles, des bijoux, des céramiques et des souvenirs uniques au cœur de la ville impériale.',
+    heroBtnExplore: 'Explorer les Passages',
+    heroBtnLocation: 'Comment s\'y rendre',
+    heroBtnContact: 'Contact',
+  },
+
+  ZH: {
+    navInicio: '首页',
+    navHistoria: '我们的历史',
+    navCategorias: '类别',
+    navPasajes: '通道',
+    navUbicacion: '位置',
+    navVisitanos: '访问我们',
+
+    heroBadge: '艺术、传统与活文化',
+    heroTitleTop: '手工艺中心',
+    heroTitleBottom: '库斯科',
+    heroSubtitle:
+      '在帝国城市的中心探索工艺品、纺织品、珠宝、陶瓷和独特的纪念品。',
+    heroBtnExplore: '探索通道',
+    heroBtnLocation: '如何到达',
+    heroBtnContact: '联系我们',
+  },
 };
 
 type Language = keyof typeof translations;
