@@ -31,8 +31,9 @@ export function Footer() {
           {/* COLUMNA 1: Brand y Redes Sociales */}
           <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="col-span-1 lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center border-2 border-mystic-gold/50 bg-black">
-                <img src="https://storage.googleapis.com/macha-dev-c76b85d/283457011245/78f47eb3-aff4-4f06-84dc-a7d316ee63d5/e7816196-1934-45fb-a524-7bd06cece3ba" alt="Logo" className="w-[120%] h-[120%] object-cover object-center" />
+              <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center border-2 border-mystic-gold/50 bg-black p-1">
+                {/* 👇 AQUÍ YA ESTÁ REEMPLAZADO POR EL NUEVO LOGO 👇 */}
+                <img src="/newlogo.png" alt="Logo" className="w-full h-full object-contain object-center" />
               </div>
               <div className="flex flex-col">
                 <span className="font-serif font-bold text-lg leading-none text-white tracking-widest">CENTRO</span>

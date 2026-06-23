@@ -89,7 +89,7 @@ export function Navbar() {
               }`}
             >
               <img
-                src="/logo.png"
+                src="/newlogo.png"
                 alt="Centro Artesanal Cusco"
                 className={`w-auto object-contain transition-all duration-500 ${
                   scrolled ? 'h-10' : 'h-12'

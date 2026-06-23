@@ -36,7 +36,7 @@ export function WelcomeGate() {
         <div className="p-8 sm:p-10 text-center">
           
           <img
-            src="/logo.png"
+            src="/newlogo.png"
             alt="Centro Artesanal Cusco"
             className="h-24 mx-auto mb-6"
           />

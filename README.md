@@ -7,7 +7,7 @@
     <meta name="description" content="Centro Artesanal Cusco: arte, cultura viva, pasajes artesanales y tradición cusqueña." />
     <meta property="og:title" content="Centro Artesanal Cusco" />
     <meta property="og:description" content="Explora tradición, cultura viva y arte hecho por manos cusqueñas." />
-    <meta property="og:image" content="/logo.png" />
+    <meta property="og:image" content="/newlogo.png" />
     <link rel="icon" type="image/png" href="/newlogo.png" />
   </head>
   <body>
