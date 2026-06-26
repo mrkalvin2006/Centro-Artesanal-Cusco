@@ -1,13 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Target, Eye, Heart, Sparkles, Play } from 'lucide-react';
+import { Target, Eye, Heart, Sparkles } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 
 export function AboutSection() {
   const { t } = useLanguage();
   const containerRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -16,13 +14,6 @@ export function AboutSection() {
 
   const yBg = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
   const values = t('aboutValuesList').split(',');
-
-  const handlePlay = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-      setIsPlaying(true);
-    }
-  };
 
   return (
     <section id="nosotros" ref={containerRef} className="py-24 relative overflow-hidden bg-mystic-dark">
@@ -35,10 +26,10 @@ export function AboutSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* PARTE SUPERIOR: TEXTO RESUMIDO Y VIDEO GIGANTE */}
+        {/* PARTE SUPERIOR: TEXTO Y VIDEO AMBILIGHT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24">
           
-          {/* Columna Izquierda: Texto de Historia (Más angosto para darle espacio al video) */}
+          {/* Columna Izquierda: Texto de Historia */}
           <motion.div
             variants={{
               hidden: { opacity: 0, x: -30 },
@@ -59,14 +50,13 @@ export function AboutSection() {
               <span className="text-mystic-gold italic">{t('aboutTitleBottom')}</span>
             </h2>
 
-            {/* Texto Resumido */}
             <div className="space-y-6 text-mystic-muted/80 leading-relaxed font-light">
               <p>{t('aboutP1')}</p>
               <p>{t('aboutP2')}</p>
             </div>
           </motion.div>
 
-          {/* Columna Derecha: Reproductor de Video (Más ancho e imponente) */}
+          {/* Columna Derecha: Efecto Ambilight Cinematográfico */}
           <motion.div
             variants={{
               hidden: { opacity: 0, scale: 0.95 },
@@ -75,39 +65,37 @@ export function AboutSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="lg:col-span-8 w-full"
+            className="lg:col-span-8 w-full relative"
           >
-            <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[550px] rounded-3xl overflow-hidden border border-mystic-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.15)] group bg-black">
+            {/* 1. LA CAPA DE LUZ AMBIENTAL (Video desenfocado de fondo) */}
+            <div className="absolute inset-0 z-0 scale-105 pointer-events-none select-none">
               <video
-                ref={videoRef}
+                src="/presentacion.mp4"
+                className="w-full h-full object-cover blur-[60px] opacity-60 mix-blend-screen"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            </div>
+
+            {/* 2. EL VIDEO PRINCIPAL (Nítido y por encima) */}
+            <div className="relative z-10 w-full h-[300px] sm:h-[400px] lg:h-[550px] rounded-3xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-black pointer-events-none select-none">
+              <video
                 src="/presentacion.mp4"
                 className="w-full h-full object-cover"
-                controls={isPlaying}
-                onPause={() => setIsPlaying(false)}
-                onEnded={() => setIsPlaying(false)}
+                autoPlay
+                muted
+                loop
+                playsInline
               />
-              
-              {!isPlaying && (
-                <div 
-                  className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] cursor-pointer transition-all group-hover:bg-black/20"
-                  onClick={handlePlay}
-                >
-                  <img 
-                    src="https://images.unsplash.com/photo-1526392060635-9d60198d3fe3?q=80&w=1200" 
-                    alt="Miniatura Video" 
-                    className="absolute inset-0 w-full h-full object-cover -z-10 opacity-70"
-                  />
-                  
-                  <div className="w-24 h-24 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center border border-mystic-gold/60 shadow-[0_0_40px_rgba(212,175,55,0.5)] group-hover:scale-110 group-hover:bg-mystic-gold/20 transition-all duration-300">
-                    <Play className="w-10 h-10 text-mystic-gold ml-1 fill-mystic-gold" />
-                  </div>
-                </div>
-              )}
+              {/* Opcional: Un ligerísimo degradado oscuro en los bordes internos para darle más dramatismo */}
+              <div className="absolute inset-0 border border-mystic-gold/10 rounded-3xl pointer-events-none mix-blend-overlay" />
             </div>
           </motion.div>
         </div>
 
-        {/* PARTE INFERIOR: TARJETAS MÁGICAS 3D (HOVER REVEAL) */}
+        {/* PARTE INFERIOR: TARJETAS MÁGICAS 3D (FLIP CARDS) */}
         <motion.div
           variants={{
             hidden: { opacity: 0 },
