@@ -38,7 +38,7 @@ export function WelcomeGate() {
           <img
             src="/newlogo.png"
             alt="Centro Artesanal Cusco"
-            className="h-24 mx-auto mb-6"
+            className="w-40 md:w-52 h-auto mx-auto mb-8 object-contain drop-shadow-[0_0_25px_rgba(212,175,55,0.25)] hover:scale-105 transition-transform duration-500"
           />
 
           <div className="flex justify-center mb-4">
