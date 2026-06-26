@@ -89,7 +89,6 @@ export function AboutSection() {
                 loop
                 playsInline
               />
-              {/* Opcional: Un ligerísimo degradado oscuro en los bordes internos para darle más dramatismo */}
               <div className="absolute inset-0 border border-mystic-gold/10 rounded-3xl pointer-events-none mix-blend-overlay" />
             </div>
           </motion.div>
@@ -108,8 +107,8 @@ export function AboutSection() {
         >
           {/* Tarjeta 1: MISIÓN */}
           <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-            <div className="group h-72 [perspective:1000px] cursor-pointer">
-              <div className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] shadow-xl">
+            <div tabIndex={0} onClick={() => {}} className="group h-72 [perspective:1000px] cursor-pointer focus:outline-none">
+              <div className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus:[transform:rotateY(180deg)] shadow-xl">
                 {/* Frente */}
                 <div className="absolute inset-0 bg-gradient-to-br from-mystic-darker to-black border border-mystic-gold/20 rounded-3xl p-8 flex flex-col items-center justify-center [backface-visibility:hidden]">
                   <Target className="w-16 h-16 text-mystic-gold mb-6 drop-shadow-[0_0_15px_rgba(212,175,55,0.8)]" />
@@ -127,8 +126,8 @@ export function AboutSection() {
 
           {/* Tarjeta 2: VISIÓN */}
           <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-            <div className="group h-72 [perspective:1000px] cursor-pointer">
-              <div className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] shadow-xl">
+            <div tabIndex={0} onClick={() => {}} className="group h-72 [perspective:1000px] cursor-pointer focus:outline-none">
+              <div className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus:[transform:rotateY(180deg)] shadow-xl">
                 {/* Frente */}
                 <div className="absolute inset-0 bg-gradient-to-br from-mystic-darker to-black border border-mystic-gold/20 rounded-3xl p-8 flex flex-col items-center justify-center [backface-visibility:hidden]">
                   <Eye className="w-16 h-16 text-mystic-gold mb-6 drop-shadow-[0_0_15px_rgba(212,175,55,0.8)]" />
@@ -146,8 +145,8 @@ export function AboutSection() {
 
           {/* Tarjeta 3: VALORES */}
           <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-            <div className="group h-72 [perspective:1000px] cursor-pointer">
-              <div className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] shadow-xl">
+            <div tabIndex={0} onClick={() => {}} className="group h-72 [perspective:1000px] cursor-pointer focus:outline-none">
+              <div className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus:[transform:rotateY(180deg)] shadow-xl">
                 {/* Frente */}
                 <div className="absolute inset-0 bg-gradient-to-br from-mystic-darker to-black border border-mystic-gold/20 rounded-3xl p-8 flex flex-col items-center justify-center [backface-visibility:hidden]">
                   <Heart className="w-16 h-16 text-mystic-gold mb-6 drop-shadow-[0_0_15px_rgba(212,175,55,0.8)]" />
