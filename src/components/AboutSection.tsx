@@ -13,7 +13,11 @@ export function AboutSection() {
   });
 
   const yBg = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
-  const values = t('aboutValuesList').split(',');
+  
+  // SOLUCIÓN: Escudo protector para las traducciones. 
+  // Si no encuentra el texto, no rompe la página, usa unos valores por defecto.
+  const rawValues = t('aboutValuesList');
+  const values = typeof rawValues === 'string' ? rawValues.split(',') : ['Calidad', 'Tradición', 'Arte'];
 
   return (
     <section id="nosotros" ref={containerRef} className="py-24 relative overflow-hidden bg-mystic-dark">
