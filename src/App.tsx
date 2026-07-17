@@ -10,7 +10,6 @@ import { PremiumGallery } from './components/PremiumGallery';
 import { VisitUsSection } from './components/VisitUsSection';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { Footer } from './components/Footer';
-import { ErrorBoundary } from './components/ErrorBoundary'; // 👈 IMPORTAMOS TU ESCUDO NUEVO
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -28,34 +27,32 @@ function App() {
   };
 
   return (
-    <ErrorBoundary> {/* 👈 ENVOLVEMOS TODA LA APLICACIÓN */}
-      <LanguageProvider>
-        {showWelcome ? (
-          <div 
-            className="fixed inset-0 z-[9999] bg-black"
-            onClick={handleEnter}
-          >
-            <WelcomeGate />
-          </div>
-        ) : (
-          <div className="bg-mystic-darker min-h-screen text-white antialiased selection:bg-mystic-gold/30 selection:text-mystic-gold">
-            <Navbar />
-            <Hero />
-            
-            <main>
-              <AboutSection />
-              <DirectorySection />
-              <ExperienceSection />
-              <PremiumGallery />
-              <VisitUsSection />
-            </main>
+    <LanguageProvider>
+      {showWelcome ? (
+        <div 
+          className="fixed inset-0 z-[9999] bg-black"
+          onClick={handleEnter}
+        >
+          <WelcomeGate />
+        </div>
+      ) : (
+        <div className="bg-mystic-darker min-h-screen text-white antialiased selection:bg-mystic-gold/30 selection:text-mystic-gold">
+          <Navbar />
+          <Hero />
+          
+          <main>
+            <AboutSection />
+            <DirectorySection />
+            <ExperienceSection />
+            <PremiumGallery />
+            <VisitUsSection />
+          </main>
 
-            <Footer />
-            <FloatingWhatsApp />
-          </div>
-        )}
-      </LanguageProvider>
-    </ErrorBoundary>
+          <Footer />
+          <FloatingWhatsApp />
+        </div>
+      )}
+    </LanguageProvider>
   );
 }
 
