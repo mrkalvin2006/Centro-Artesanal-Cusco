@@ -13,6 +13,17 @@ export function WelcomeGate() {
     { code: 'zh', label: '中文', flag: '🇨🇳' },
   ];
 
+  const handleLanguageSelect = (code: string) => {
+    // 1. Cambiamos el idioma
+    setLanguage(code as any);
+    
+    // 2. Esperamos 300 milisegundos para que el usuario vea la animación dorada, y luego ingresamos automáticamente
+    setTimeout(() => {
+      const background = document.querySelector('.fixed.inset-0.z-\\[9999\\]') as HTMLElement;
+      if (background) background.click();
+    }, 300);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 relative">
       {/* Tarjeta de Cristal Premium */}
@@ -43,16 +54,16 @@ export function WelcomeGate() {
         </p>
 
         <p className="text-white/80 text-sm mb-6 text-center font-light">
-          Seleccione su idioma para continuar
+          Seleccione su idioma para ingresar
         </p>
 
         {/* Nuevo Selector de Idiomas */}
-        <div className="grid grid-cols-2 gap-3 w-full mb-8">
+        <div className="grid grid-cols-2 gap-3 w-full">
           {languages.map((lang) => (
             <button
               key={lang.code}
-              onClick={() => setLanguage(lang.code as any)}
-              className={`flex items-center justify-center gap-3 py-3.5 px-4 rounded-xl border transition-all duration-300 ${
+              onClick={() => handleLanguageSelect(lang.code)}
+              className={`flex items-center justify-center gap-3 py-4 px-4 rounded-xl border transition-all duration-300 ${
                 language === lang.code
                   ? 'bg-mystic-gold/10 border-mystic-gold text-mystic-gold shadow-[0_0_20px_rgba(212,175,55,0.15)] scale-[1.02]'
                   : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white hover:border-mystic-gold/50'
@@ -63,17 +74,6 @@ export function WelcomeGate() {
             </button>
           ))}
         </div>
-
-        {/* Botón de Ingreso con la función onClick activa */}
-        <button 
-          onClick={() => {
-            const background = document.querySelector('.fixed.inset-0.z-\\[9999\\]') as HTMLElement;
-            if (background) background.click();
-          }}
-          className="w-full py-4 bg-gradient-to-r from-mystic-gold to-yellow-600 hover:from-yellow-500 hover:to-mystic-gold text-black font-bold text-sm tracking-[0.2em] uppercase rounded-xl transition-all duration-500 shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:scale-[1.02]"
-        >
-          INGRESAR
-        </button>
 
       </div>
     </div>
