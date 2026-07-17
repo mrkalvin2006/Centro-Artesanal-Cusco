@@ -1,90 +1,76 @@
-import { useState, useEffect } from 'react';
-import { Globe } from 'lucide-react';
+import React from 'react';
 import { useLanguage } from '../lib/LanguageContext';
+import { Globe } from 'lucide-react';
 
 export function WelcomeGate() {
-  const [visible, setVisible] = useState(false);
-  const { lang, setLang, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
 
-  useEffect(() => {
-    const alreadyVisited = localStorage.getItem('cac_welcome');
-
-    if (!alreadyVisited) {
-      setVisible(true);
-    }
-  }, []);
-
-  const enterSite = () => {
-    localStorage.setItem('cac_welcome', 'true');
-    setVisible(false);
-  };
-
-  if (!visible) return null;
-
-  // Lista de los 5 idiomas soportados
   const languages = [
-    { code: 'ES', label: '🇵🇪 Español' },
-    { code: 'EN', label: '🇺🇸 English' },
-    { code: 'PT', label: '🇧🇷 Português' },
-    { code: 'FR', label: '🇫🇷 Français' },
-    { code: 'ZH', label: '🇨🇳 中文' }
-  ] as const;
+    { code: 'es', label: 'Español', flag: '🇵🇪' },
+    { code: 'en', label: 'English', flag: '🇺🇸' },
+    { code: 'pt', label: 'Português', flag: '🇧🇷' },
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'zh', label: '中文', flag: '🇨🇳' },
+  ];
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-6">
-      <div className="w-full max-w-lg rounded-3xl border border-mystic-gold/30 bg-mystic-dark shadow-2xl overflow-hidden max-h-[95vh] overflow-y-auto">
-        <div className="p-8 sm:p-10 text-center">
-          
-          <img
-            src="/newlogo.png"
-            alt="Centro Artesanal Cusco"
-            className="w-40 md:w-52 h-auto mx-auto mb-8 object-contain drop-shadow-[0_0_25px_rgba(212,175,55,0.25)] hover:scale-105 transition-transform duration-500"
-          />
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 relative">
+      {/* Tarjeta de Cristal Premium */}
+      <div 
+        className="w-full max-w-md bg-black/60 backdrop-blur-2xl border border-mystic-gold/20 rounded-[2rem] p-8 md:p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col items-center z-10"
+        onClick={(e) => e.stopPropagation()} /* Evita que clics accidentales aquí adentro cierren la pantalla */
+      >
+        
+        {/* Logo Agrandado */}
+        <img
+          src="/newlogo.png"
+          alt="Centro Artesanal Cusco"
+          className="w-40 md:w-48 h-auto mx-auto mb-8 object-contain drop-shadow-[0_0_25px_rgba(212,175,55,0.3)]"
+        />
 
-          <div className="flex justify-center mb-4">
-            <div className="w-14 h-14 rounded-full bg-mystic-gold/10 flex items-center justify-center border border-mystic-gold/30">
-              <Globe className="w-7 h-7 text-mystic-gold animate-pulse" />
-            </div>
-          </div>
-
-          <h1 className="font-serif text-3xl sm:text-4xl text-white mb-2">
-            Centro Artesanal Cusco
-          </h1>
-
-          <p className="text-mystic-gold tracking-widest uppercase text-sm mb-4 transition-all">
-            {t('welcomeTitle')}
-          </p>
-
-          <p className="text-mystic-light/80 mb-8 transition-all">
-            {t('welcomeSubtitle')}
-          </p>
-
-          {/* Grilla de Idiomas (2 columnas para ahorrar espacio) */}
-          <div className="grid grid-cols-2 gap-3 mb-8">
-            {languages.map((l, index) => (
-              <button
-                key={l.code}
-                // Al hacer clic, actualizamos el idioma global al instante
-                onClick={() => setLang(l.code as 'ES' | 'EN' | 'PT' | 'FR' | 'ZH')}
-                className={`py-3 px-2 rounded-xl border transition-all ${
-                  lang === l.code
-                    ? 'border-mystic-gold bg-mystic-gold/20 text-mystic-gold shadow-[0_0_15px_rgba(212,175,55,0.2)]'
-                    : 'border-mystic-gold/20 hover:bg-mystic-gold/10 text-white/80 hover:text-white'
-                } ${index === 4 ? 'col-span-2' : ''}`} // El último botón (Chino) ocupa el ancho completo
-              >
-                {l.label}
-              </button>
-            ))}
-          </div>
-
-          <button
-            onClick={enterSite}
-            className="w-full py-4 rounded-xl bg-mystic-gold text-black font-bold tracking-wide hover:scale-105 shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all"
-          >
-            {t('welcomeEnter')}
-          </button>
-
+        {/* Ícono Decorativo */}
+        <div className="w-12 h-12 rounded-full border border-mystic-gold/30 flex items-center justify-center mb-6 bg-gradient-to-b from-mystic-gold/10 to-transparent">
+          <Globe className="w-5 h-5 text-mystic-gold" />
         </div>
+
+        <h1 className="text-3xl md:text-4xl font-serif text-white text-center tracking-wider mb-2 leading-tight">
+          CENTRO ARTESANAL<br />
+          <span className="text-mystic-gold italic">CUSCO</span>
+        </h1>
+        
+        <p className="text-mystic-gold/80 text-xs tracking-[0.3em] uppercase mb-8 font-medium">
+          Bienvenido • Welcome
+        </p>
+
+        <p className="text-white/80 text-sm mb-6 text-center font-light">
+          Seleccione su idioma para continuar
+        </p>
+
+        {/* Nuevo Selector de Idiomas */}
+        <div className="grid grid-cols-2 gap-3 w-full mb-8">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => setLanguage(lang.code as any)}
+              className={`flex items-center justify-center gap-3 py-3.5 px-4 rounded-xl border transition-all duration-300 ${
+                language === lang.code
+                  ? 'bg-mystic-gold/10 border-mystic-gold text-mystic-gold shadow-[0_0_20px_rgba(212,175,55,0.15)] scale-[1.02]'
+                  : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white hover:border-mystic-gold/50'
+              }`}
+            >
+              <span className="text-xl drop-shadow-md">{lang.flag}</span>
+              <span className="font-medium text-sm tracking-wide">{lang.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Botón de Ingreso (Este botón SÍ permite que el clic cierre la pantalla) */}
+        <button 
+          className="w-full py-4 bg-gradient-to-r from-mystic-gold to-yellow-600 hover:from-yellow-500 hover:to-mystic-gold text-black font-bold text-sm tracking-[0.2em] uppercase rounded-xl transition-all duration-500 shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:scale-[1.02]"
+        >
+          INGRESAR
+        </button>
+
       </div>
     </div>
   );
