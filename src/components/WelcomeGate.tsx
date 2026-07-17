@@ -64,8 +64,12 @@ export function WelcomeGate() {
           ))}
         </div>
 
-        {/* Botón de Ingreso (Este botón SÍ permite que el clic cierre la pantalla) */}
+        {/* Botón de Ingreso con la función onClick activa */}
         <button 
+          onClick={() => {
+            const background = document.querySelector('.fixed.inset-0.z-\\[9999\\]') as HTMLElement;
+            if (background) background.click();
+          }}
           className="w-full py-4 bg-gradient-to-r from-mystic-gold to-yellow-600 hover:from-yellow-500 hover:to-mystic-gold text-black font-bold text-sm tracking-[0.2em] uppercase rounded-xl transition-all duration-500 shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:scale-[1.02]"
         >
           INGRESAR
