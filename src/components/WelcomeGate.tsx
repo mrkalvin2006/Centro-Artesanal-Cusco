@@ -17,15 +17,19 @@ export function WelcomeGate() {
     // 1. Cambiamos el idioma
     setLanguage(code as any);
     
-    // 2. Esperamos 300 milisegundos para que el usuario vea la animación dorada, y luego ingresamos automáticamente
+    // 2. Esperamos 300ms y hacemos el clic automático en el padre (el fondo negro)
     setTimeout(() => {
-      const background = document.querySelector('.fixed.inset-0.z-\\[9999\\]') as HTMLElement;
-      if (background) background.click();
+      const welcomeRoot = document.getElementById('welcome-gate-root');
+      if (welcomeRoot && welcomeRoot.parentElement) {
+        welcomeRoot.parentElement.click(); // Esto abre la puerta de la página
+      }
     }, 300);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 relative">
+    {/* Agregamos el ID 'welcome-gate-root' aquí para encontrarlo fácilmente */}
+    <div id="welcome-gate-root" className="flex flex-col items-center justify-center min-h-screen p-4 relative">
+      
       {/* Tarjeta de Cristal Premium */}
       <div 
         className="w-full max-w-md bg-black/60 backdrop-blur-2xl border border-mystic-gold/20 rounded-[2rem] p-8 md:p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col items-center z-10"
