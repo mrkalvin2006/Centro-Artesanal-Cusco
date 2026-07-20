@@ -21,19 +21,18 @@ export function WelcomeGate() {
     setTimeout(() => {
       const welcomeRoot = document.getElementById('welcome-gate-root');
       if (welcomeRoot && welcomeRoot.parentElement) {
-        welcomeRoot.parentElement.click(); // Esto abre la puerta de la página
+        welcomeRoot.parentElement.click(); 
       }
     }, 300);
   };
 
   return (
-    {/* Agregamos el ID 'welcome-gate-root' aquí para encontrarlo fácilmente */}
     <div id="welcome-gate-root" className="flex flex-col items-center justify-center min-h-screen p-4 relative">
       
       {/* Tarjeta de Cristal Premium */}
       <div 
         className="w-full max-w-md bg-black/60 backdrop-blur-2xl border border-mystic-gold/20 rounded-[2rem] p-8 md:p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col items-center z-10"
-        onClick={(e) => e.stopPropagation()} /* Evita que clics accidentales aquí adentro cierren la pantalla */
+        onClick={(e) => e.stopPropagation()} 
       >
         
         {/* Logo Agrandado */}
