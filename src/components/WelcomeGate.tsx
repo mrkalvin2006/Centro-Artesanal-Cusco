@@ -3,27 +3,27 @@ import { useLanguage } from '../lib/LanguageContext';
 import { Globe } from 'lucide-react';
 
 export function WelcomeGate() {
-  const { language, setLanguage } = useLanguage();
+  const { lang, setLang } = useLanguage();
 
   const languages = [
-    { code: 'es', label: 'Español', flag: '🇵🇪' },
-    { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'pt', label: 'Português', flag: '🇧🇷' },
-    { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'zh', label: '中文', flag: '🇨🇳' },
+    { code: 'ES', label: 'Español', flag: '🇵🇪' },
+    { code: 'EN', label: 'English', flag: '🇺🇸' },
+    { code: 'PT', label: 'Português', flag: '🇧🇷' },
+    { code: 'FR', label: 'Français', flag: '🇫🇷' },
+    { code: 'ZH', label: '中文', flag: '🇨🇳' },
   ];
 
   const handleLanguageSelect = (code: string) => {
     // 1. Cambiamos el idioma
-    setLanguage(code as any);
-    
-    // 2. Esperamos 300ms y hacemos el clic automático en el padre (el fondo negro)
+    setLang(code as any);
+
+    // 2. Esperamos y hacemos el clic automático en el padre (el fondo negro)
     setTimeout(() => {
       const welcomeRoot = document.getElementById('welcome-gate-root');
       if (welcomeRoot && welcomeRoot.parentElement) {
         welcomeRoot.parentElement.click(); 
       }
-    }, 300);
+    }, 200);
   };
 
   return (
@@ -62,18 +62,18 @@ export function WelcomeGate() {
 
         {/* Nuevo Selector de Idiomas */}
         <div className="grid grid-cols-2 gap-3 w-full">
-          {languages.map((lang) => (
+          {languages.map((l) => (
             <button
-              key={lang.code}
-              onClick={() => handleLanguageSelect(lang.code)}
+              key={l.code}
+              onClick={() => handleLanguageSelect(l.code)}
               className={`flex items-center justify-center gap-3 py-4 px-4 rounded-xl border transition-all duration-300 ${
-                language === lang.code
+                lang === l.code
                   ? 'bg-mystic-gold/10 border-mystic-gold text-mystic-gold shadow-[0_0_20px_rgba(212,175,55,0.15)] scale-[1.02]'
                   : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white hover:border-mystic-gold/50'
               }`}
             >
-              <span className="text-xl drop-shadow-md">{lang.flag}</span>
-              <span className="font-medium text-sm tracking-wide">{lang.label}</span>
+              <span className="text-xl drop-shadow-md">{l.flag}</span>
+              <span className="font-medium text-sm tracking-wide">{l.label}</span>
             </button>
           ))}
         </div>

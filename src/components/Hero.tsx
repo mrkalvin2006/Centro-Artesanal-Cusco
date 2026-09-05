@@ -16,7 +16,7 @@ export function Hero() {
 
   const slides = [
     {
-      image: '/hero-cac.jpg',
+      image: '/hero-cac.webp',
       badge: t('heroSlide1Badge'),
       title: t('heroSlide1Title1'),
       title2: t('heroSlide1Title2'),

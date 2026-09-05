@@ -2,8 +2,6 @@
 @import "tailwindcss";
 
 @theme {
-  --color-mystic-green: #00FF66; /* Glowing Mystic Green */
-  --color-mystic-green-light: #99FFC2;
   --color-mystic-gold: #D4AF37;
   --color-mystic-gold-light: #FCE69B;
   --color-mystic-red: #D32F2F;
@@ -36,4 +34,16 @@ body {
   background-image: radial-gradient(circle at 50% 0%, var(--color-mystic-gray) 0%, transparent 60%),
                     radial-gradient(circle at 100% 100%, #1A1500 0%, transparent 40%);
   background-attachment: fixed;
+}
+
+/* Respeta la preferencia del sistema de reducir animaciones */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
