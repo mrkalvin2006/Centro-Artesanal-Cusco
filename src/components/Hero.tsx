@@ -9,6 +9,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
+import { getWhatsAppUrl } from '../lib/contact';
 
 export function Hero() {
   const { t } = useLanguage();
@@ -62,7 +63,6 @@ export function Hero() {
       id="inicio"
       className="relative h-screen min-h-[800px] overflow-hidden bg-mystic-darker"
     >
-      {/* BACKGROUND CINEMATOGRÁFICO CON CROSSFADE */}
       <AnimatePresence>
         <motion.div
           key={current}
@@ -82,19 +82,13 @@ export function Hero() {
         </motion.div>
       </AnimatePresence>
 
-      {/* OVERLAYS CRISTALINOS (SÓLO LO ESENCIAL PARA EL TEXTO) */}
-      
-      {/* 1. Sombra sutil solo a la izquierda para poder leer el texto blanco */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/60 via-black/10 to-transparent pointer-events-none" />
       
-      {/* 2. Sombra inferior solo para resaltar los botones indicadores de la parte baja */}
       <div className="absolute inset-x-0 bottom-0 h-1/3 z-[1] bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
       
-      {/* 3. Reflejo dorado opcional y muy suave */}
       <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_75%_40%,rgba(212,175,55,0.08),transparent_50%)] pointer-events-none" />
 
 
-      {/* CONTENT */}
       <div className="relative z-10 h-full flex items-center">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full">
           <div className="max-w-3xl">
@@ -154,7 +148,6 @@ export function Hero() {
               </motion.div>
             </AnimatePresence>
 
-            {/* BOTONES */}
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="#pasajes"
@@ -173,7 +166,7 @@ export function Hero() {
               </a>
 
               <a
-                href="https://wa.me/51999999999"
+                href={getWhatsAppUrl('Hola, quisiera informacion sobre el Centro Artesanal Cusco.')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border border-mystic-gold/40 bg-black/20 backdrop-blur-xl hover:bg-mystic-gold hover:text-black text-mystic-gold px-8 py-4 rounded-md font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
@@ -186,7 +179,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* FLECHAS */}
       <button
         onClick={prevSlide}
         className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/20 backdrop-blur-xl border border-white/20 text-white hover:bg-mystic-gold hover:text-black hover:scale-110 transition-all shadow-xl"
@@ -201,7 +193,6 @@ export function Hero() {
         <ChevronRight className="mx-auto" />
       </button>
 
-      {/* INDICADORES PREMIUM */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-4 items-center">
         {slides.map((_, index) => (
           <button key={index} onClick={() => setCurrent(index)} className="group">
