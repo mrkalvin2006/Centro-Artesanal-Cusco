@@ -12,7 +12,7 @@ export function BottomStats() {
       {/* Decorative Parallax Background */}
       <motion.div 
         style={{ y: yBg }}
-        className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1558384462-8e100c5bc674?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center h-[150%] -top-[25%]"
+        className="absolute inset-0 opacity-10 bg-[url('https://images.pexels.com/photos/17059195/pexels-photo-17059195/free-photo-of-santo-domingo-convent-in-cusco-peru.jpeg?auto=compress&cs=tinysrgb&w=2400')] bg-cover bg-center h-[150%] -top-[25%]"
       />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
