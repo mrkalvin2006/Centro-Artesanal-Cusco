@@ -17,7 +17,7 @@ const categories = [
     title: 'Textiles',
     subtitle: 'Tejidos andinos y prendas tradicionales',
     image:
-      'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=1200&auto=format&fit=crop',
+      'https://images.pexels.com/photos/37966512/pexels-photo-37966512/free-photo-of-colorful-peruvian-craft-market-scene-in-cusco.jpeg?auto=compress&cs=tinysrgb&w=1200',
     icon: Shirt,
     span: 'col-span-1 md:col-span-2 row-span-2 min-h-[420px]',
   },
@@ -26,7 +26,7 @@ const categories = [
     title: 'Orfebrería',
     subtitle: 'Joyería y piezas de inspiración andina',
     image:
-      'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop',
     icon: Gem,
     span: 'col-span-1 min-h-[220px]',
   },
@@ -35,7 +35,7 @@ const categories = [
     title: 'Cerámicas',
     subtitle: 'Piezas decorativas y utilitarias',
     image:
-      'https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=1200&auto=format&fit=crop',
+      'https://images.pexels.com/photos/5113588/pexels-photo-5113588.jpeg?auto=compress&cs=tinysrgb&w=1200',
     icon: Amphora,
     span: 'col-span-1 min-h-[220px]',
   },
@@ -44,7 +44,7 @@ const categories = [
     title: 'Baby Alpaca',
     subtitle: 'Prendas suaves de alta calidad',
     image:
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop',
+      'https://images.pexels.com/photos/14519168/pexels-photo-14519168.jpeg?auto=compress&cs=tinysrgb&w=1200',
     icon: Shirt,
     span: 'col-span-1 md:col-span-2 min-h-[220px]',
   },
@@ -53,7 +53,7 @@ const categories = [
     title: 'Tallados',
     subtitle: 'Arte en madera y piezas decorativas',
     image:
-      'https://images.unsplash.com/photo-1516972810927-80185027ca84?q=80&w=1200&auto=format&fit=crop',
+      'https://images.pexels.com/photos/7109996/pexels-photo-7109996.jpeg?auto=compress&cs=tinysrgb&w=1200',
     icon: Scissors,
     span: 'col-span-1 min-h-[220px]',
   },
@@ -62,7 +62,7 @@ const categories = [
     title: 'Pinturas & Cuadros',
     subtitle: 'Expresiones visuales de la cultura andina',
     image:
-      'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=1200&auto=format&fit=crop',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Cuzqueña2.jpg?width=1200',
     icon: Brush,
     span: 'col-span-1 md:col-span-2 min-h-[220px]',
   },
@@ -71,7 +71,7 @@ const categories = [
     title: 'Recuerdos',
     subtitle: 'Souvenirs únicos del Cusco',
     image:
-      'https://images.unsplash.com/photo-1513519107127-1aa25b822af2?q=80&w=1200&auto=format&fit=crop',
+      'https://images.pexels.com/photos/18464461/pexels-photo-18464461/free-photo-of-vendors-selling-handmade-embroidered-blankets.jpeg?auto=compress&cs=tinysrgb&w=1200',
     icon: Gift,
     span: 'col-span-1 min-h-[220px]',
   },
