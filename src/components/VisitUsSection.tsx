@@ -1,9 +1,10 @@
 import { MapPin, Clock, Phone, Navigation } from 'lucide-react';
 import { motion } from 'motion/react';
+import { DISPLAY_PHONE } from '../lib/contact';
 
 export function VisitUsSection() {
   const googleMapsUrl = 'https://maps.google.com/?q=Centro+Artesanal+Cusco';
-  const phone = '+51 XXX XXX XXX';
+  const phone = DISPLAY_PHONE;
 
   return (
     <section id="ubicacion" className="py-24 bg-mystic-darker relative overflow-hidden">
@@ -17,7 +18,7 @@ export function VisitUsSection() {
           className="text-center max-w-3xl mx-auto mb-14"
         >
           <p className="text-mystic-gold uppercase tracking-[0.3em] text-sm mb-4">
-            Visítanos
+            Visitanos
           </p>
 
           <h2 className="font-serif text-4xl md:text-5xl text-white mb-5">
@@ -25,7 +26,7 @@ export function VisitUsSection() {
           </h2>
 
           <p className="text-mystic-muted/80 text-lg">
-            Encuentra arte, cultura, tradición y productos únicos en el corazón de la ciudad imperial.
+            Encuentra arte, cultura, tradicion y productos unicos en el corazon de la ciudad imperial.
           </p>
         </motion.div>
 
@@ -43,10 +44,10 @@ export function VisitUsSection() {
                 </div>
 
                 <div>
-                  <h3 className="text-white font-serif text-xl mb-1">Dirección</h3>
+                  <h3 className="text-white font-serif text-xl mb-1">Direccion</h3>
                   <p className="text-mystic-muted/80">
                     Centro Artesanal Cusco<br />
-                    Cusco - Perú
+                    Cusco - Peru
                   </p>
                 </div>
               </div>
@@ -57,7 +58,7 @@ export function VisitUsSection() {
                 </div>
 
                 <div>
-                  <h3 className="text-white font-serif text-xl mb-1">Horario de atención</h3>
+                  <h3 className="text-white font-serif text-xl mb-1">Horario de atencion</h3>
                   <p className="text-mystic-muted/80">
                     Lunes a Domingo<br />
                     08:00 a.m. - 08:00 p.m.
@@ -95,7 +96,7 @@ export function VisitUsSection() {
             className="rounded-3xl overflow-hidden border border-mystic-gold/20 min-h-[420px] shadow-2xl"
           >
             <iframe
-              title="Ubicación Centro Artesanal Cusco"
+              title="Ubicacion Centro Artesanal Cusco"
               src="https://www.google.com/maps?q=Centro%20Artesanal%20Cusco&output=embed"
               className="w-full h-full min-h-[420px] border-0"
               loading="lazy"
