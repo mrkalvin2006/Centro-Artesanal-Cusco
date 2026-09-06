@@ -1,14 +1,17 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, MapPin, MessageCircle, User } from 'lucide-react';
+import { Search, MapPin, MessageCircle, User, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { artisans, pasajesList } from '../lib/artisansData';
 import { getWhatsAppUrl } from '../lib/contact';
+
+const ITEMS_PER_PAGE = 9;
 
 export function DirectorySection() {
   const { t } = useLanguage();
   const [activePasaje, setActivePasaje] = useState('Todos');
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredArtisans = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
@@ -18,6 +21,22 @@ export function DirectorySection() {
       return matchPasaje && matchSearch;
     });
   }, [activePasaje, searchTerm]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activePasaje, searchTerm]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredArtisans.length / ITEMS_PER_PAGE));
+  const paginatedArtisans = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredArtisans.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredArtisans, currentPage]);
+
+  const goToPage = (page) => {
+    const clamped = Math.min(Math.max(page, 1), totalPages);
+    setCurrentPage(clamped);
+    document.getElementById('directorio')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <section id="directorio" className="py-24 bg-mystic-darker relative border-t border-mystic-gold/10">
@@ -76,8 +95,8 @@ export function DirectorySection() {
 
           <div className="w-full lg:w-3/4">
             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              <AnimatePresence>
-                {filteredArtisans.map((artisan) => (
+              <AnimatePresence mode="popLayout">
+                {paginatedArtisans.map((artisan) => (
                   <motion.div
                     key={artisan.id}
                     layout
@@ -123,6 +142,32 @@ export function DirectorySection() {
                 <h3 className="text-xl text-mystic-light mb-2">{t('dirNotFoundTitle')}</h3>
                 <p className="text-mystic-muted">{t('dirNotFoundDesc')}</p>
               </motion.div>
+            )}
+
+            {filteredArtisans.length > 0 && totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-8 flex-wrap">
+                <button
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  aria-label="Página anterior"
+                  className="w-10 h-10 rounded-full border border-mystic-gold/30 text-mystic-gold flex items-center justify-center hover:bg-mystic-gold/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-mystic-gold/50"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                <span className="text-mystic-muted text-sm px-3">
+                  Página {currentPage} de {totalPages}
+                </span>
+
+                <button
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  aria-label="Página siguiente"
+                  className="w-10 h-10 rounded-full border border-mystic-gold/30 text-mystic-gold flex items-center justify-center hover:bg-mystic-gold/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-mystic-gold/50"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             )}
           </div>
 
