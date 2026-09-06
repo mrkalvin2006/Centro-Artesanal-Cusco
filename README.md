@@ -1,5 +1,32 @@
 # Centro Artesanal Cusco
 
+Landing page oficial del Centro Artesanal Cusco: directorio de pasajes, categorias de artesania y cultura andina.
+
+## Stack
+
+- Vite + React 19 + TypeScript
+- Tailwind CSS v4
+- Motion para animaciones
+- React Leaflet para el mapa de pasajes
+
+## Desarrollo local
+
+npm install
+npm run dev
+
+## Build de produccion
+
+npm run build
+
+Esto genera la carpeta dist/ lista para publicar. Nunca se debe publicar el codigo fuente sin compilar.
+
+## Despliegue
+
+El sitio se publica automaticamente en GitHub Pages mediante el workflow .github/workflows/deploy.yml: cada push a main compila el proyecto y publica el contenido de dist/.
+
+El dominio personalizado (centroartesanalcusco.com) esta configurado en public/CNAME, el cual Vite copia automaticamente a dist/ en cada build.
+# Centro Artesanal Cusco
+
 Landing page oficial del Centro Artesanal Cusco: directorio de pasajes, categorías de artesanía y cultura andina.
 
 ## Stack
