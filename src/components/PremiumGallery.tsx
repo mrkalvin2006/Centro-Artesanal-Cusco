@@ -14,12 +14,12 @@ const rubrosList = [
 
 // 2. Fotos de alta calidad de muestra (se repetirán para simular las 45)
 const sampleImages = [
-  'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=600',
-  'https://images.unsplash.com/photo-1509616788574-8d48bccaab08?q=80&w=600',
-  'https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=600',
-  'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=600',
-  'https://images.unsplash.com/photo-1610086812822-0fcde3f5509e?q=80&w=600',
-  'https://images.unsplash.com/photo-1531604250646-2f0e818c4f06?q=80&w=600'
+  'https://images.pexels.com/photos/37966512/pexels-photo-37966512/free-photo-of-colorful-peruvian-craft-market-scene-in-cusco.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=600&auto=format&fit=crop',
+  'https://images.pexels.com/photos/5113588/pexels-photo-5113588.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'https://images.pexels.com/photos/7109996/pexels-photo-7109996.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'https://images.pexels.com/photos/14519168/pexels-photo-14519168.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'https://images.pexels.com/photos/18464461/pexels-photo-18464461/free-photo-of-vendors-selling-handmade-embroidered-blankets.jpeg?auto=compress&cs=tinysrgb&w=600'
 ];
 
 // 3. Generador: Crea 45 tarjetas (15 rubros x 3 fotos)
